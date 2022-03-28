@@ -3,9 +3,54 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32228.343
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{FBD7E783-E140-4BDB-AA6C-322C6E7F68FA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Nginx", "Nginx", "{8D6C6E9E-92F1-4D66-9F8D-D429DFFF075B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApps", "WebApps", "{A98CB680-C8C4-4A96-B52B-EC9B2B4BEB8C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Admin", "Admin", "{9A4CE11B-C18F-4B08-B959-F94BD188B751}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Admin.API", "Admin.API", "{25230E8D-5E7F-4110-8094-C84FE6C4315E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Admin.API", "Services\Admin\Admin.API\Admin.API.csproj", "{805F3360-98F4-46FF-896D-046ACBAB88C0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Admin", "Admin", "{E290C798-EADD-4F96-8900-0B75DB600F15}"
+	ProjectSection(SolutionItems) = preProject
+		Nginx\Admin\nginx.conf = Nginx\Admin\nginx.conf
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shop", "Shop", "{52D18F00-851A-4AAF-AC0A-704B01293BE0}"
+	ProjectSection(SolutionItems) = preProject
+		Nginx\Shop\nginx.conf = Nginx\Shop\nginx.conf
+	EndProjectSection
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{F12FC4A9-2335-4666-8A06-FF4A2A218BE7}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{805F3360-98F4-46FF-896D-046ACBAB88C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{805F3360-98F4-46FF-896D-046ACBAB88C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{805F3360-98F4-46FF-896D-046ACBAB88C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{805F3360-98F4-46FF-896D-046ACBAB88C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F12FC4A9-2335-4666-8A06-FF4A2A218BE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F12FC4A9-2335-4666-8A06-FF4A2A218BE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F12FC4A9-2335-4666-8A06-FF4A2A218BE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F12FC4A9-2335-4666-8A06-FF4A2A218BE7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9A4CE11B-C18F-4B08-B959-F94BD188B751} = {FBD7E783-E140-4BDB-AA6C-322C6E7F68FA}
+		{25230E8D-5E7F-4110-8094-C84FE6C4315E} = {9A4CE11B-C18F-4B08-B959-F94BD188B751}
+		{805F3360-98F4-46FF-896D-046ACBAB88C0} = {25230E8D-5E7F-4110-8094-C84FE6C4315E}
+		{E290C798-EADD-4F96-8900-0B75DB600F15} = {8D6C6E9E-92F1-4D66-9F8D-D429DFFF075B}
+		{52D18F00-851A-4AAF-AC0A-704B01293BE0} = {8D6C6E9E-92F1-4D66-9F8D-D429DFFF075B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {745E67BC-1702-4799-B886-2F5D59F2AA03}

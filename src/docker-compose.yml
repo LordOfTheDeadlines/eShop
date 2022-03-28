@@ -1,0 +1,16 @@
+version: '3.4'
+
+services:
+  admindb:
+    image: postgres
+
+  admin.api:
+    image: ${DOCKER_REGISTRY-}adminapi
+    build:
+      context: .
+      dockerfile: Services/Admin/Admin.API/Dockerfile
+  
+
+
+volumes:
+  postgres_data:
