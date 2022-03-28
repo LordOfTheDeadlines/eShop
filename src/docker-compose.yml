@@ -1,16 +1,36 @@
 version: '3.4'
 
 services:
+
+  nginx:
+    image: nginx  
+
+  catalogdb:
+    image: mongo
+
   admindb:
     image: postgres
 
   admin.api:
-    image: ${DOCKER_REGISTRY-}adminapi
+    image: ${DOCKER_REGISTRY-}admin.api
     build:
       context: .
       dockerfile: Services/Admin/Admin.API/Dockerfile
   
 
 
+  adminwebapp:
+    image: ${DOCKER_REGISTRY-}adminwebapp
+    build:
+      context: .
+      dockerfile: WebApps/Admin/AdminWebApp/Dockerfile
+
+  catalog.api:
+    image: ${DOCKER_REGISTRY-}catalogapi
+    build:
+      context: .
+      dockerfile: Services/Catalog/Catalog.API/Catalog.API/Dockerfile
+
 volumes:
   postgres_data:
+
