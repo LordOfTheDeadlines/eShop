@@ -2,8 +2,8 @@ version: '3.4'
 
 services:
 
-  nginx:
-    image: nginx  
+  rabbitmq:
+    image: rabbitmq:3-management
 
   catalogdb:
     image: mongo
@@ -25,12 +25,16 @@ services:
       context: .
       dockerfile: WebApps/Admin/AdminWebApp/Dockerfile
 
+
   catalog.api:
     image: ${DOCKER_REGISTRY-}catalogapi
     build:
       context: .
-      dockerfile: Services/Catalog/Catalog.API/Catalog.API/Dockerfile
+      dockerfile: Services/Catalog/Catalog.API/Dockerfile
 
 volumes:
   postgres_data:
+  mongo_data:
+
+
 

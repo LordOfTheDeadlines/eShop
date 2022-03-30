@@ -1,6 +1,9 @@
 using Admin.API.Data.Context;
+using Admin.API.RabbitMQ;
 using Admin.API.Repository;
 using Admin.API.Repository.Interfaces;
+using Admin.API.Services;
+using Admin.API.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -19,9 +22,14 @@ namespace Admin.API
 {
     public class Startup
     {
+        private RabbitService _rabbitMqService = new();
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
+            Configuration.GetSection("RabbitMQ").Bind(_rabbitMqService.Config);
+            _rabbitMqService.StartConnection("items", "categories");
         }
 
         public IConfiguration Configuration { get; }
@@ -34,6 +42,10 @@ namespace Admin.API
 
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
+
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<ICategoryService, CategoryService>();
+
             services.AddControllers()
                 .AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling =
                 Newtonsoft.Json.ReferenceLoopHandling.Ignore);
@@ -41,6 +53,8 @@ namespace Admin.API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Admin.API", Version = "v1" });
             });
+
+            services.AddSingleton(_rabbitMqService);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

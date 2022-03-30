@@ -1,0 +1,44 @@
+version: '3.4'
+
+services:
+
+  admindb:
+    image: postgres
+    container_name: admindb
+    environment: 
+    - POSTGRES_USER=postgres
+    - POSTGRES_PASSWORD=password
+    - POSTGRES_DB=AdminDb
+    restart: always
+    ports: 
+    - "5432:5432"
+    volumes:
+    - postgres_admin:/var/lib/postgresql/data/
+
+  admin.api:
+    image: ${DOCKER_REGISTRY-}admin.api
+    build:
+      context: .
+      dockerfile: Services/Admin/Admin.API/Dockerfile
+    container_name: admin.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "8000:80"
+
+  adminwebapp:
+    image: ${DOCKER_REGISTRY-}adminwebapp
+    build:
+      context: .
+      dockerfile: WebApps/Admin/AdminWebApp/Dockerfile
+    container_name: adminwebapp
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ApiSettings:GatewayAddress=http://admin.api"
+    depends_on:
+    - admin.api
+    ports:
+      - "5000:80"
+
+volumes:
+  postgres_admin:

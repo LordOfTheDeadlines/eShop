@@ -1,5 +1,6 @@
 ﻿using Admin.API.Data.Entites;
 using Admin.API.Repository.Interfaces;
+using Admin.API.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -16,12 +17,12 @@ namespace Admin.API.Controllers
     //[Authorize("ClientIdPolicy")]
     public class CategoryController : ControllerBase
     {
-        private readonly ICategoryRepository _repository;
+        private readonly ICategoryService _service;
         private readonly ILogger<CategoryController> _logger;
 
-        public CategoryController(ICategoryRepository repository, ILogger<CategoryController> logger)
+        public CategoryController(ICategoryService service, ILogger<CategoryController> logger)
         {
-            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            _service = service ?? throw new ArgumentNullException(nameof(service));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
@@ -29,7 +30,7 @@ namespace Admin.API.Controllers
         [ProducesResponseType(typeof(IEnumerable<Category>), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
         {
-            var categories = await _repository.GetCategories();
+            var categories = await _service.GetCategories();
             return Ok(categories);
         }
         
@@ -38,7 +39,7 @@ namespace Admin.API.Controllers
         [ProducesResponseType(typeof(Category), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<Category>> GetCategoryById(int id)
         {
-            var category = await _repository.GetCategory(id);
+            var category = await _service.GetCategory(id);
 
             if (category == null)
             {
@@ -54,7 +55,7 @@ namespace Admin.API.Controllers
         [ProducesResponseType(typeof(Category), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<Category>> CreateCategory([FromBody] Category category)
         {
-            await _repository.CreateCategory(category);
+            await _service.CreateCategory(category);
 
             return CreatedAtRoute("GetCategory", new { id = category.Id }, category);
         }
@@ -63,14 +64,14 @@ namespace Admin.API.Controllers
         [ProducesResponseType(typeof(Category), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> UpdateCategory([FromBody] Category category)
         {
-            return Ok(await _repository.UpdateCategory(category));
+            return Ok(await _service.UpdateCategory(category));
         }
 
         [HttpDelete("{id}", Name = "DeleteCategory")]
         [ProducesResponseType(typeof(Category), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> DeleteCategoryById(int id)
         {
-            return Ok(await _repository.DeleteCategory(id));
+            return Ok(await _service.DeleteCategory(id));
         }
     }
 }

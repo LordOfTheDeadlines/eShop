@@ -14,7 +14,11 @@
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "RABBITMQ_USER": "app",
+        "RABBITMQ_PASSWORD": "450nit",
+        "RABBITMQ_HOST": "localhost",
+        "RABBITMQ_PORT": "5672"
       }
     },
     "Admin.API": {
@@ -22,7 +26,11 @@
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "RABBITMQ_USER": "app",
+        "RABBITMQ_PASSWORD": "450nit",
+        "RABBITMQ_HOST": "localhost",
+        "RABBITMQ_PORT": "5672"
       },
       "dotnetRunMessages": "true",
       "applicationUrl": "http://localhost:5000"

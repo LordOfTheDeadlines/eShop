@@ -1,5 +1,6 @@
 ﻿using Admin.API.Data.Entites;
 using Admin.API.Repository.Interfaces;
+using Admin.API.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -16,12 +17,12 @@ namespace Admin.API.Controllers
     //[Authorize("ClientIdPolicy")]
     public class ProductController : ControllerBase
     {
-        private readonly IProductRepository _repository;
+        private readonly IProductService _service;
         private readonly ILogger<ProductController> _logger;
 
-        public ProductController(IProductRepository repository, ILogger<ProductController> logger)
+        public ProductController(IProductService service, ILogger<ProductController> logger)
         {
-            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            _service = service ?? throw new ArgumentNullException(nameof(service));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
@@ -29,7 +30,7 @@ namespace Admin.API.Controllers
         [ProducesResponseType(typeof(IEnumerable<Product>), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
         {
-            var products = await _repository.GetProducts();
+            var products = await _service.GetProducts();
             return Ok(products);
         }
 
@@ -38,7 +39,7 @@ namespace Admin.API.Controllers
         [ProducesResponseType(typeof(Product), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<Product>> GetProductById(int id)
         {
-            var product = await _repository.GetProduct(id);
+            var product = await _service.GetProduct(id);
 
             if (product == null)
             {
@@ -53,7 +54,7 @@ namespace Admin.API.Controllers
         [ProducesResponseType(typeof(Product), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<Product>> CreateProduct([FromBody] Product product)
         {
-            await _repository.CreateProduct(product);
+            await _service.CreateProduct(product);
 
             return CreatedAtRoute("GetProduct", new { id = product.Id }, product);
         }
@@ -62,14 +63,14 @@ namespace Admin.API.Controllers
         [ProducesResponseType(typeof(Product), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> UpdateProduct([FromBody] Product product)
         {
-            return Ok(await _repository.UpdateProduct(product));
+            return Ok(await _service.UpdateProduct(product));
         }
 
         [HttpDelete("{id}", Name = "DeleteProduct")]
         [ProducesResponseType(typeof(Product), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> DeleteProductById(int id)
         {
-            return Ok(await _repository.DeleteProduct(id));
+            return Ok(await _service.DeleteProduct(id));
         }
 
 

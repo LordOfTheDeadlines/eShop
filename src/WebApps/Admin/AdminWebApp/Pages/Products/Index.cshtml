@@ -1,0 +1,39 @@
+﻿@page
+@model AdminWebApp.Pages.ProductsModel
+@{
+}
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<h1>Products</h1>
+<form method="post">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Model.ProductList)
+            {
+            <tr>
+                <td>@product.Id  </td>
+                <td>@product.Name</td>
+                <td>@product.Category</td>
+                <td>@product.Price</td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@product.Id">Edit</a> |
+                    <button type="submit" asp-page-handler="delete"
+                            asp-route-id="@product.Id">
+                        delete
+                    </button>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+    <a asp-page="./Create">Create New</a>
+</form>
+

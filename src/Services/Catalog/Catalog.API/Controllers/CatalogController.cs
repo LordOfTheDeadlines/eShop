@@ -1,6 +1,5 @@
 ﻿using Catalog.API.Data.Entities;
 using Catalog.API.Repositories.Interfaces;
-using DnsClient.Internal;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
