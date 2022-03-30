@@ -1,9 +1,9 @@
-﻿using Catalog.API.Data.Context.Interfaces;
-using Catalog.API.Data.Entities;
+﻿using Catalog.Worker.Data.Context.Interfaces;
+using Catalog.Worker.Data.Entities;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 
-namespace Catalog.API.Data.Context
+namespace Catalog.Worker.Data.Context
 {
     class CatalogContext : ICatalogContext
     {

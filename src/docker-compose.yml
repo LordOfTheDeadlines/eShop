@@ -32,9 +32,16 @@ services:
       context: .
       dockerfile: Services/Catalog/Catalog.API/Dockerfile
 
+  catalog.worker:
+    image: ${DOCKER_REGISTRY-}catalogworker
+    build:
+      context: .
+      dockerfile: Services/Catalog/Catalog.Worker/Dockerfile
+
 volumes:
   postgres_data:
   mongo_data:
+
 
 
 
