@@ -10,7 +10,7 @@
     Parent:
     <select asp-for="CategoryMod.ParentId" class="form-control"
             asp-items="@Model.Categories">
-        <option value="">-- Select Parent --</option>
+        <option value="">@Model.Categories.FirstOrDefault()</option>
     </select>
     <input type="submit" />
 </form>
