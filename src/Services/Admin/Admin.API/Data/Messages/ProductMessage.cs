@@ -37,7 +37,7 @@ namespace Admin.API.Data
                 Name = item.Name,
                 Price = item.Price,
                 ImageUrl = item.ImageUrl,
-                CategoryId = item.Category.Id
+                CategoryId = (int)item.CategoryId
             };
         }
     }

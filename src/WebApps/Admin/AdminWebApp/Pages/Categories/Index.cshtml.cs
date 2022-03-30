@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AdminWebApp.Models;
 using AdminWebApp.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -17,7 +18,7 @@ namespace AdminWebApp.Pages
             _categoryService = categoryService ?? throw new ArgumentNullException(nameof(categoryService));
         }
 
-        public IEnumerable<Models.CategoryModel> CategoryList { get; set; } = new List<Models.CategoryModel>();
+        public IEnumerable<Category> CategoryList { get; set; } = new List<Category>();
 
 
         public async Task OnGetAsync()

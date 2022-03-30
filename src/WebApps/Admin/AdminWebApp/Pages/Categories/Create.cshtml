@@ -4,12 +4,15 @@
 }
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
-<p>Enter a customer name:</p>
+<p>Enter a category info:</p>
 
 <form method="post">
     Name:
-    <input asp-for="Category.Name" />
+    <input asp-for="CategoryMod.Name" />
     Parent:
-    <input asp-for="Category.ParentCategory" />
+    <select asp-for="CategoryMod.ParentId" class="form-control"
+            asp-items="@Model.Categories">
+        <option value="">-- Select Parent --</option>
+    </select>
     <input type="submit" />
 </form>

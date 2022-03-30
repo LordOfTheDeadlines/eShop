@@ -1,3 +1,5 @@
+using Catalog.Worker.Data.Context;
+using Catalog.Worker.Data.Context.Interfaces;
 using Catalog.Worker.Data.Messages;
 using Catalog.Worker.RabbitMQ;
 using Catalog.Worker.Services;
@@ -17,11 +19,13 @@ namespace Catalog.Worker
         private readonly ILogger<Worker> _logger;
         private readonly CatalogService _catalogService;
         private readonly RabbitService _rabbitMq;
+        private readonly ICatalogContext _context;
 
         public Worker(ILoggerFactory loggerFactory)
         {
             _logger = loggerFactory.CreateLogger<Worker>();
-            _catalogService = new CatalogService(loggerFactory);
+            _context = new CatalogContext();
+            _catalogService = new CatalogService(_context, loggerFactory);
             _rabbitMq = new RabbitService();
             _logger.LogInformation("Initialization completed");
         }

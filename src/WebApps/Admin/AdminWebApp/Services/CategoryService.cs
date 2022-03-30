@@ -20,38 +20,39 @@ namespace AdminWebApp.Services
             _client = client ?? throw new ArgumentNullException(nameof(client));
         }
 
-        public async Task<CategoryModel> CreateCategory(CategoryModel model)
+        public async Task<Category> CreateCategory(Category model)
         {
-            var response = await _client.PostAsJson($"/Category", model);
+            var response = await _client.PostAsJson($"/api/v1/Category", model);
             if (response.IsSuccessStatusCode)
-                return await response.ReadContentAs<CategoryModel>();
+                return await response.ReadContentAs<Category>();
             else
             {
                 throw new Exception("Something went wrong when calling api.");
             }
         }
-        public Task<CategoryModel> DeleteCategory(CategoryModel model)
+        public async Task<Category> DeleteCategory(Category model)
         {
-            throw new NotImplementedException();
+            var response = await _client.DeleteAsync("/api/v1/Category");
+            return await response.ReadContentAs<Category>();
         }
 
-        public async Task<IEnumerable<CategoryModel>> GetCategories()
+        public async Task<IEnumerable<Category>> GetCategories()
         {
             var response = await _client.GetAsync("/api/v1/Category");
-            return await response.ReadContentAs<List<CategoryModel>>();
+            return await response.ReadContentAs<List<Category>>();
         }
 
-        public async Task<CategoryModel> GetCategory(int id)
+        public async Task<Category> GetCategory(int id)
         {
-            var response = await _client.GetAsync($"/Category/{id}");
-            return await response.ReadContentAs<CategoryModel>();
+            var response = await _client.GetAsync($"/api/v1/Category/{id}");
+            return await response.ReadContentAs<Category>();
         }
 
-        public async Task<CategoryModel> UpdateCategory(CategoryModel model)
+        public async Task<Category> UpdateCategory(Category model)
         {
-            var response = await _client.PostAsJson($"/Category", model);
+            var response = await _client.PostAsJson($"/api/v1/Category", model);
             if (response.IsSuccessStatusCode)
-                return await response.ReadContentAs<CategoryModel>();
+                return await response.ReadContentAs<Category>();
             else
             {
                 throw new Exception("Something went wrong when calling api.");

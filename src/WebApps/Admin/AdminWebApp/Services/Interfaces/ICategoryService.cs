@@ -8,10 +8,10 @@ namespace AdminWebApp.Services.Interfaces
 {
     public interface ICategoryService
     {
-        Task<IEnumerable<CategoryModel>> GetCategories();
-        Task<CategoryModel> GetCategory(int id);
-        Task<CategoryModel> CreateCategory(CategoryModel model);
-        Task<CategoryModel> UpdateCategory(CategoryModel model);
-        Task<CategoryModel> DeleteCategory(CategoryModel model);
+        Task<IEnumerable<Category>> GetCategories();
+        Task<Category> GetCategory(int id);
+        Task<Category> CreateCategory(Category model);
+        Task<Category> UpdateCategory(Category model);
+        Task<Category> DeleteCategory(Category model);
     }
 }

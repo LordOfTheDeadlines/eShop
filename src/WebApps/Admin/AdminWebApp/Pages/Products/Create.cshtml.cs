@@ -8,16 +8,16 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace AdminWebApp.Pages.Categories
+namespace AdminWebApp.Pages.Products
 {
     public class CreateModel : PageModel
     {
-
         private readonly ICategoryService _categoryService;
-
-        public CreateModel(ICategoryService categoryService)
+        private readonly IProductService _productService;
+        public CreateModel(ICategoryService categoryService, IProductService productService)
         {
             _categoryService = categoryService ?? throw new ArgumentNullException(nameof(categoryService));
+            _productService = productService ?? throw new ArgumentNullException(nameof(productService));
         }
 
         public SelectList Categories { get; set; }
@@ -30,7 +30,7 @@ namespace AdminWebApp.Pages.Categories
         }
 
         [BindProperty]
-        public Category CategoryMod { get; set; }
+        public ProductModel ProductMod { get; set; }
 
         public async Task<IActionResult> OnPostAsync()
         {
@@ -39,7 +39,7 @@ namespace AdminWebApp.Pages.Categories
                 return Page();
             }
 
-            await _categoryService.CreateCategory(new Category(CategoryMod.Name, CategoryMod.ParentId));
+            await _productService.CreateProduct(new ProductModel(ProductMod.Id, ProductMod.Name, ProductMod.Price, ProductMod.ImageUrl, ProductMod.Category, ProductMod.CategoryId));
 
             return RedirectToPage("./Index");
         }

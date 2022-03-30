@@ -17,7 +17,7 @@ namespace Catalog.Worker.Services
         private readonly ILogger<CatalogService> _logger;
         private readonly ICatalogContext _context;
 
-        public CatalogService(ICatalogContext context,ILoggerFactory loggerFactory)
+        public CatalogService(ICatalogContext context, ILoggerFactory loggerFactory)
         {
             _logger = loggerFactory.CreateLogger<CatalogService>();
 

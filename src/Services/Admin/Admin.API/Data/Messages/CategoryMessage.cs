@@ -27,7 +27,7 @@ namespace Admin.API.Data
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public int ParentId { get; set; }
+        public int? ParentId { get; set; }
 
         public static SimpleCategory From(Category category)
         {
@@ -35,7 +35,7 @@ namespace Admin.API.Data
             {
                 Id = category.Id,
                 Name = category.Name,
-                ParentId = category.Parent.Id
+                ParentId = category.ParentId
             };
         }
     }
