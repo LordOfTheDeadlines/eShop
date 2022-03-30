@@ -13,6 +13,7 @@ namespace Catalog.API.Data.Context
             var database = client.GetDatabase(configuration.GetValue<string>("DatabaseSettings:DatabaseName"));
 
             Catalog = database.GetCollection<CategoryAssortment>(configuration.GetValue<string>("DatabaseSettings:CollectionName"));
+
         }
 
         public IMongoCollection<CategoryAssortment> Catalog { get; }
