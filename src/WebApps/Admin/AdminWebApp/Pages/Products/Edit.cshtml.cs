@@ -26,7 +26,6 @@ namespace AdminWebApp.Pages.Products
         public async Task<IActionResult> OnGetAsync(int id)
         {
             var categories = await _categoryService.GetCategories();
-            productToUpdate = await _productService.GetProduct(id);
 
             Categories = new SelectList(categories, nameof(CategoryModel.Id), nameof(CategoryModel.Name));
             return Page();

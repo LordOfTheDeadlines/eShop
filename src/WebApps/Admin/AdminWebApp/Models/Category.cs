@@ -22,6 +22,13 @@ namespace AdminWebApp.Models
             ParentId = id;
         }
 
+        public Category(int id, string name, int? parentId)
+        {
+            Id = id;
+            Name = name;
+            ParentId = parentId;
+        }
+
         public int Id { get; set; }
         public string Name { get; set; }
         public Category Parent { get; set; }

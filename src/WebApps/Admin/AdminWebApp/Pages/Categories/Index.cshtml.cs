@@ -25,5 +25,6 @@ namespace AdminWebApp.Pages
         {
             CategoryList = await _categoryService.GetCategories();
         }
+
     }
 }

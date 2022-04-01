@@ -25,8 +25,7 @@
                 <td>@product.Price</td>
                 <td>
                     <a asp-page="./Edit" asp-route-id="@product.Id">Edit</a> |
-                    <button type="submit" asp-page-handler="delete"
-                            asp-route-id="@product.Id">
+                    <button type="submit" formnovalidate asp-page-handler="delete" asp-route-id="@product.Id">
                         delete
                     </button>
                 </td>

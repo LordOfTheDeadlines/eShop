@@ -32,7 +32,7 @@ namespace AdminWebApp.Services
         }
         public async Task<Category> DeleteCategory(Category model)
         {
-            var response = await _client.DeleteAsync("/api/v1/Category");
+            var response = await _client.DeleteAsync($"/api/v1/Category/{model.Id}");
             return await response.ReadContentAs<Category>();
         }
 
@@ -50,7 +50,7 @@ namespace AdminWebApp.Services
 
         public async Task<Category> UpdateCategory(Category model)
         {
-            var response = await _client.PostAsJson($"/api/v1/Category", model);
+            var response = await _client.PutAsJson($"/api/v1/Category", model);
             if (response.IsSuccessStatusCode)
                 return await response.ReadContentAs<Category>();
             else

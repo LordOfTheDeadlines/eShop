@@ -1,4 +1,5 @@
 using AdminWebApp.Services.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,12 @@ namespace AdminWebApp.Pages
         public async Task OnGetAsync()
         {
             ProductList = await _productService.GetProducts();
+        }
+
+        public async Task<IActionResult> OnPostDeleteAsync(int id)
+        {
+            await _productService.DeleteProduct(id);
+            return RedirectToPage();
         }
     }
 }

@@ -31,7 +31,7 @@ namespace AdminWebApp.Services
         public async Task<ProductModel> DeleteProduct(int id)
         {
             var response = await _client.DeleteAsync($"/api/v1/Product/{id}");
-            return null;
+            return await response.ReadContentAs<ProductModel>();
         }
         public async Task<ProductModel> GetProduct(int id)
         {
