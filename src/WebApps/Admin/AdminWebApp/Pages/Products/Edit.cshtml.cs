@@ -14,7 +14,7 @@ namespace AdminWebApp.Pages.Products
     {
         private readonly ICategoryService _categoryService;
         private readonly IProductService _productService;
-        private ProductModel productToUpdate;
+        private Product productToUpdate;
 
         public EditModel(ICategoryService categoryService, IProductService productService)
         {
@@ -27,12 +27,12 @@ namespace AdminWebApp.Pages.Products
         {
             var categories = await _categoryService.GetCategories();
 
-            Categories = new SelectList(categories, nameof(CategoryModel.Id), nameof(CategoryModel.Name));
+            Categories = new SelectList(categories, nameof(Category.Id), nameof(Category.Name));
             return Page();
         }
 
         [BindProperty]
-        public ProductModel ProductMod { get; set; }
+        public Product ProductMod { get; set; }
 
         public async Task<IActionResult> OnPutAsync()
         {
@@ -42,10 +42,10 @@ namespace AdminWebApp.Pages.Products
             }
             if (ProductMod.CategoryId != null)
             {
-                await _productService.UpdateProduct(new ProductModel(ProductMod.Id, ProductMod.Name, ProductMod.Price, ProductMod.ImageUrl, ProductMod.Category, ProductMod.CategoryId));
+                await _productService.UpdateProduct(new Product(ProductMod.Id, ProductMod.Name, ProductMod.Price, ProductMod.ImageUrl, ProductMod.Category, ProductMod.CategoryId));
             }
             else
-                await _productService.UpdateProduct(new ProductModel(ProductMod.Id, ProductMod.Name, ProductMod.Price, ProductMod.ImageUrl));
+                await _productService.UpdateProduct(new Product(ProductMod.Id, ProductMod.Name, ProductMod.Price, ProductMod.ImageUrl));
 
             return RedirectToPage("./Index");
         }

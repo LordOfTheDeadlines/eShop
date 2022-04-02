@@ -16,7 +16,7 @@ namespace AdminWebApp.Pages
             _productService = categoryService ?? throw new ArgumentNullException(nameof(categoryService));
         }
 
-        public IEnumerable<Models.ProductModel> ProductList { get; set; } = new List<Models.ProductModel>();
+        public IEnumerable<Models.Product> ProductList { get; set; } = new List<Models.Product>();
 
 
         public async Task OnGetAsync()

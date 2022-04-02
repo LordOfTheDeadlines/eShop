@@ -30,7 +30,7 @@ namespace AdminWebApp.Pages.Products
         }
 
         [BindProperty]
-        public ProductModel ProductMod { get; set; }
+        public Product ProductMod { get; set; }
 
         public async Task<IActionResult> OnPostAsync()
         {
@@ -39,7 +39,7 @@ namespace AdminWebApp.Pages.Products
                 return Page();
             }
 
-            await _productService.CreateProduct(new ProductModel(ProductMod.Id, ProductMod.Name, ProductMod.Price, ProductMod.ImageUrl, ProductMod.Category, ProductMod.CategoryId));
+            await _productService.CreateProduct(new Product(ProductMod.Id, ProductMod.Name, ProductMod.Price, ProductMod.ImageUrl, ProductMod.Category, ProductMod.CategoryId));
 
             return RedirectToPage("./Index");
         }

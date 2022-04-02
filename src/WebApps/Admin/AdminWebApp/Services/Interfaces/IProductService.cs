@@ -8,11 +8,11 @@ namespace AdminWebApp.Services.Interfaces
 {
     public interface IProductService
     {
-        Task<IEnumerable<ProductModel>> GetProducts();
-        Task<ProductModel> GetProduct(int id);
-        Task<ProductModel> CreateProduct(ProductModel model);
-        Task<ProductModel> UpdateProduct(ProductModel model);
-        Task<ProductModel> DeleteProduct(int id);
+        Task<IEnumerable<Product>> GetProducts();
+        Task<Product> GetProduct(int id);
+        Task<Product> CreateProduct(Product model);
+        Task<Product> UpdateProduct(Product model);
+        Task<Product> DeleteProduct(int id);
 
     }
 }

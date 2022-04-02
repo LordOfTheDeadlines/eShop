@@ -8,10 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Pages\Categories\Details.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.11.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
@@ -19,19 +15,6 @@
 
   <ItemGroup>
     <Folder Include="Services\" />
-    <Folder Include="Views\Product\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Pages\Categories\Details.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="Pages\Categories\Details.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Pages\Categories\Details.cshtml" />
   </ItemGroup>
 
 </Project>

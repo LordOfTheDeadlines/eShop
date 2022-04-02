@@ -21,7 +21,7 @@ namespace Admin.API.Repository
         public async Task<Product> GetProduct(int id)
         {
             return await _context.Products
-                .Where(i => i.CategoryId == id)
+                .Where(i => i.Id == id)
                 .Include(i => i.Category)
                 .FirstOrDefaultAsync();
         }
