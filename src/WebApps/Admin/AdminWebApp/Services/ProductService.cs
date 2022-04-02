@@ -46,7 +46,7 @@ namespace AdminWebApp.Services
         }
         public async Task<Product> UpdateProduct(Product model)
         {
-            var response = await _client.PostAsJson($"/api/v1/Product", model);
+            var response = await _client.PutAsJson($"/api/v1/Product", model);
             if (response.IsSuccessStatusCode)
                 return await response.ReadContentAs<Product>();
             else

@@ -81,3 +81,9 @@ services:
       - RABBITMQ_PORT=5672
       - RABBITMQ_USER=shop
       - RABBITMQ_PASSWORD=s123456
+  shopwebapp:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "5001:80"
+

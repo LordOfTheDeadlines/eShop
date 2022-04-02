@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ShopWebApp.Services;
+using ShopWebApp.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +24,10 @@ namespace ShopWebApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRazorPages();
+            services.AddHttpClient<ICatalogService, CatalogService>(c =>
+                c.BaseAddress = new Uri(Configuration["ApiSettings:GatewayAddress"]));
+
+            services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,7 +50,9 @@ namespace ShopWebApp
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapRazorPages();
+                endpoints.MapControllerRoute(
+                  name: "default",
+                  pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

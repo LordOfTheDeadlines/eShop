@@ -41,9 +41,16 @@ services:
       context: .
       dockerfile: Services/Catalog/Catalog.Worker/Dockerfile
 
+  shopwebapp:
+    image: ${DOCKER_REGISTRY-}shopwebapp
+    build:
+      context: .
+      dockerfile: WebApps/Shop/ShopWebApp/Dockerfile
+
 volumes:
   postgres_data:
   mongo_data:
+
 
 
 

@@ -23,5 +23,10 @@ namespace Catalog.API.Repositories
             return await _context.Catalog.Find(c => c.Id == id).FirstOrDefaultAsync();
         }
 
+        public async Task<IEnumerable<CategoryAssortment>> GetCatalog()
+        {
+            return await _context.Catalog.Find(c => true).ToListAsync();
+        }
+
     }
 }

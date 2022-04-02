@@ -9,5 +9,6 @@ namespace Catalog.API.Repositories.Interfaces
     public interface ICatalogRepository
     {
         Task<CategoryAssortment> GetCategoryAssortment(int id);
+        Task<IEnumerable<CategoryAssortment>> GetCatalog();
     }
 }

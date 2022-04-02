@@ -22,6 +22,14 @@ namespace Catalog.API.Controllers
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
+        [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<CategoryAssortment>), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<IEnumerable<CategoryAssortment>>> GetCategories()
+        {
+            var categories = await _repository.GetCatalog();
+            return Ok(categories);
+        }
+
         [HttpGet("{id}", Name = "GetCategoryAssortment")]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(CategoryAssortment), (int)HttpStatusCode.OK)]
