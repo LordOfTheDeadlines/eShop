@@ -1,0 +1,52 @@
+﻿@model Product
+@{
+    ViewData["Title"] = "ProductDetail";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    @*<li class="breadcrumb-item"><a asp-page="Index">Home</a></li>
+                    <li class="breadcrumb-item"><a asp-page="Product">Product</a></li>*@
+                    <li class="breadcrumb-item active" aria-current="page">@Model.Name</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <!-- Image -->
+        <div class="col-12 col-lg-6">
+            <div class="card bg-light mb-3">
+                <div class="card-body">
+                    <a href="" data-toggle="modal" data-target="#productModal">
+                        <img class="img-fluid" src=@Model.ImageUrl />
+                        <p class="text-center">@Model.Name</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add to cart -->
+        <div class="col-12 col-lg-6 add_to_cart_block">
+            <div class="card bg-light mb-3">
+                <div class="card-body">
+                    <p class="price">@Model.Price $</p>
+                    <form asp-page-handler="AddToCart" method="post" name="addToCartForm" id="add_cart_form">
+
+                        <a href="javascript:;" onclick="parentNode.submit();" class="btn btn-success btn-lg btn-block text-uppercase">
+                            <i class="fa fa-shopping-cart"></i> Add To Cart
+                        </a>
+                        <input type="hidden" asp-for="@Model.Id" name="productId" />
+                    </form>
+
+                </div>
+        </div>
+    </div>
+
+    </div>
+</div>

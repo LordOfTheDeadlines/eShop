@@ -1,0 +1,23 @@
+﻿@model Product
+
+<div class="card" style="width: 18rem;">
+    <img asp-append-version="true" class="card-img-top" src=@Model.ImageUrl alt="">
+    <div class="card-body">
+        <h4 class="card-title color-main">@Html.ActionLink(Model.Name, "ProductDetailsAsync", new {id = Model.Id })</h4>
+        <div class="row">
+            <div class="col">
+                <p class="btn btn-danger btn-block">@Model.Price $</p>
+            </div>
+            <div class="col">
+
+                @*<a asp-page="Cart" asp-route-productId="@Model.Id" class="btn btn-success btn-block">Add to Cart</a>*@
+
+                <form asp-page-handler="AddToCart" method="post" name="addToCartForm" id="add_cart_form">
+                    <a href="javascript:;" onclick="parentNode.submit();" class="btn btn-success btn-block">Add to Cart</a>
+                    <input type="hidden" asp-for="@Model.Id" name="productId" />
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

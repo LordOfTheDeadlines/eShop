@@ -32,8 +32,8 @@ namespace Catalog.Worker
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            _rabbitMq.StartConnection("items", "categories");
-            _rabbitMq.Consume("items", ProcessItemMessage);
+            _rabbitMq.StartConnection("products", "categories");
+            _rabbitMq.Consume("products", ProcessItemMessage);
             _rabbitMq.Consume("categories", ProcessCategoryMessage);
 
             _logger.LogInformation("Started");
@@ -46,7 +46,7 @@ namespace Catalog.Worker
 
         private void ProcessItemMessage(string json)
         {
-            _logger.LogInformation("From RabiitMQ (queue = 'items') recieved: " + json);
+            _logger.LogInformation("From RabiitMQ (queue = 'products') recieved: " + json);
 
             var message = JsonSerializer.Deserialize<ProductMessage>(json);
 
