@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Identity.API.Repositories.Interfaces
 {
-    interface IRefreshTokenRepository
+    public interface IRefreshTokenRepository
     {
         public Task Create(RefreshToken refreshToken);
         public Task Remove(Guid id);
