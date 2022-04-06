@@ -30,10 +30,10 @@ namespace AdminWebApp.Services
                 throw new Exception("Something went wrong when calling api.");
             }
         }
-        public async Task<Category> DeleteCategory(Category model)
+        public async Task<bool> DeleteCategory(Category model)
         {
             var response = await _client.DeleteAsync($"/api/v1/Category/{model.Id}");
-            return await response.ReadContentAs<Category>();
+            return await response.ReadContentAs<bool>();
         }
 
         public async Task<IEnumerable<Category>> GetCategories()
@@ -48,11 +48,11 @@ namespace AdminWebApp.Services
             return await response.ReadContentAs<Category>();
         }
 
-        public async Task<Category> UpdateCategory(Category model)
+        public async Task<bool> UpdateCategory(Category model)
         {
             var response = await _client.PutAsJson($"/api/v1/Category", model);
             if (response.IsSuccessStatusCode)
-                return await response.ReadContentAs<Category>();
+                return await response.ReadContentAs<bool>();
             else
             {
                 throw new Exception("Something went wrong when calling api.");

@@ -1,10 +1,14 @@
 ﻿using AdminWebApp.Models;
 using AdminWebApp.Services.Interfaces;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -18,10 +22,22 @@ namespace AdminWebApp.Controllers
         {
             _categoryService = categoryService ?? throw new ArgumentNullException(nameof(categoryService));
         }
+        public async Task LogTokenAndClaims()
+        {
+            var identityToken = await HttpContext.GetTokenAsync(OpenIdConnectParameterNames.IdToken);
+
+            Debug.WriteLine($"Identity token: {identityToken}");
+
+            foreach (var claim in User.Claims)
+            {
+                Debug.WriteLine($"Claim type: {claim.Type} - Claim value: {claim.Value}");
+            }
+        }
 
         // GET: CategoryController
         public async Task<ActionResult> IndexAsync()
         {
+            //await LogTokenAndClaims();
             return View(await _categoryService.GetCategories());
         }
 

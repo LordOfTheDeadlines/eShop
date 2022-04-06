@@ -11,7 +11,7 @@ namespace AdminWebApp.Services.Interfaces
         Task<IEnumerable<Category>> GetCategories();
         Task<Category> GetCategory(int id);
         Task<Category> CreateCategory(Category model);
-        Task<Category> UpdateCategory(Category model);
-        Task<Category> DeleteCategory(Category model);
+        Task<bool> UpdateCategory(Category model);
+        Task<bool> DeleteCategory(Category model);
     }
 }

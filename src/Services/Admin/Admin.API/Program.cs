@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
-
+using Microsoft.IdentityModel.Logging;
 
 namespace Admin.API
 {
@@ -17,9 +17,9 @@ namespace Admin.API
                .MigrateDatabase<AdminDB>((context, services) =>
                {
                    var logger = services.GetService<ILogger<AdminDBSeed>>();
-                   AdminDBSeed
-                       .SeedAsync(context, logger)
-                       .Wait();
+                   //AdminDBSeed
+                   //    .SeedAsync(context, logger)
+                   //    .Wait();
                })
                .Run();
 

@@ -6,9 +6,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{FBD7E783-E140-4BDB-AA6C-322C6E7F68FA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Nginx", "Nginx", "{8D6C6E9E-92F1-4D66-9F8D-D429DFFF075B}"
-	ProjectSection(SolutionItems) = preProject
-		..\..\..\..\Downloads\Online-shop (1)\Online-shop\nginx\nginx.conf = ..\..\..\..\Downloads\Online-shop (1)\Online-shop\nginx\nginx.conf
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApps", "WebApps", "{A98CB680-C8C4-4A96-B52B-EC9B2B4BEB8C}"
 EndProject
@@ -26,6 +23,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Admin", "Admin", "{E290C798
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shop", "Shop", "{52D18F00-851A-4AAF-AC0A-704B01293BE0}"
 	ProjectSection(SolutionItems) = preProject
+		..\..\..\..\PycharmProjects\TaskBum\nginx\Dockerfile = ..\..\..\..\PycharmProjects\TaskBum\nginx\Dockerfile
 		Nginx\Shop\nginx.conf = Nginx\Shop\nginx.conf
 	EndProjectSection
 EndProject
@@ -53,7 +51,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{B1
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Identity.API", "Services\Identity\Identity.API\Identity.API.csproj", "{7E1F2026-AAAC-4140-A60C-427108064EC7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Core", "..\Identity.Core\Identity.Core.csproj", "{B07DF341-EAE6-48C2-BAF9-464AE4F9D9DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Identity.Core", "..\Identity.Core\Identity.Core.csproj", "{B07DF341-EAE6-48C2-BAF9-464AE4F9D9DD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateway", "ApiGateway", "{79573ED0-7099-4495-BAB5-95DEB98276B7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OcelotApiGw", "ApiGateway\OcelotApiGw\OcelotApiGw.csproj", "{B1E1FDB2-10C8-4896-B983-50406584BCC4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity4", "Identity4", "{D4299170-E604-4DED-ADA6-24CEDCAC60C6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Identity.API", "Services\Identity4\Identity.API\Identity.API.csproj", "{A6DA1352-B0D3-4154-A32B-01E4362A75D5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -97,6 +103,14 @@ Global
 		{B07DF341-EAE6-48C2-BAF9-464AE4F9D9DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B07DF341-EAE6-48C2-BAF9-464AE4F9D9DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B07DF341-EAE6-48C2-BAF9-464AE4F9D9DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1E1FDB2-10C8-4896-B983-50406584BCC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1E1FDB2-10C8-4896-B983-50406584BCC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1E1FDB2-10C8-4896-B983-50406584BCC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1E1FDB2-10C8-4896-B983-50406584BCC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6DA1352-B0D3-4154-A32B-01E4362A75D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6DA1352-B0D3-4154-A32B-01E4362A75D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6DA1352-B0D3-4154-A32B-01E4362A75D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6DA1352-B0D3-4154-A32B-01E4362A75D5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -118,6 +132,9 @@ Global
 		{B174246A-1F15-4602-83FF-033770D79A3E} = {FBD7E783-E140-4BDB-AA6C-322C6E7F68FA}
 		{7E1F2026-AAAC-4140-A60C-427108064EC7} = {B174246A-1F15-4602-83FF-033770D79A3E}
 		{B07DF341-EAE6-48C2-BAF9-464AE4F9D9DD} = {CD1627EA-565B-45CC-9F86-3F6ED6F0EBA6}
+		{B1E1FDB2-10C8-4896-B983-50406584BCC4} = {79573ED0-7099-4495-BAB5-95DEB98276B7}
+		{D4299170-E604-4DED-ADA6-24CEDCAC60C6} = {FBD7E783-E140-4BDB-AA6C-322C6E7F68FA}
+		{A6DA1352-B0D3-4154-A32B-01E4362A75D5} = {D4299170-E604-4DED-ADA6-24CEDCAC60C6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {745E67BC-1702-4799-B886-2F5D59F2AA03}

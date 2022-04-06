@@ -10,5 +10,6 @@ namespace Catalog.API.Repositories.Interfaces
     {
         Task<CategoryAssortment> GetCategoryAssortment(int id);
         Task<IEnumerable<CategoryAssortment>> GetCatalog();
+        Task<Product> GetProduct(int categoryId, int productId);
     }
 }

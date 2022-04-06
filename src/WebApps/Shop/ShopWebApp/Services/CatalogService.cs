@@ -29,5 +29,11 @@ namespace ShopWebApp.Services
             var response = await _client.GetAsync($"/api/v1/Catalog/{id}");
             return await response.ReadContentAs<CategoryAssortment>();
         }
+
+        public async Task<Product> GetProductDetails(int categoryId, int productId)
+        {
+            var response = await _client.GetAsync($"/api/v1/Catalog/{categoryId}/{productId}");
+            return await response.ReadContentAs<Product>();
+        }
     }
 }

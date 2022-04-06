@@ -14,7 +14,6 @@ namespace Admin.API.Controllers
 {
     [ApiController]
     [Route("api/v1/[controller]")]
-    //[Authorize("ClientIdPolicy")]
     public class ProductController : ControllerBase
     {
         private readonly IProductService _service;

@@ -33,7 +33,7 @@ namespace Catalog.API.Controllers
         [HttpGet("{id}", Name = "GetCategoryAssortment")]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(CategoryAssortment), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<CategoryAssortment>> GetProductById(int id)
+        public async Task<ActionResult<CategoryAssortment>> GetCategoryAssortment(int id)
         {
             var categoryAssortment = await _repository.GetCategoryAssortment(id);
 
@@ -44,6 +44,23 @@ namespace Catalog.API.Controllers
             }
 
             return Ok(categoryAssortment);
+        }
+
+
+        [HttpGet("{categoryId}/{productId}", Name = "GetProduct")]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesResponseType(typeof(CategoryAssortment), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<Product>> GetProduct(int categoryId, int productId)
+        {
+            var product = await _repository.GetProduct(categoryId, productId);
+
+            if (product == null)
+            {
+                _logger.LogError($"Product with id: {productId}, not found.");
+                return NotFound();
+            }
+
+            return Ok(product);
         }
     }
 }

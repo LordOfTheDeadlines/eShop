@@ -5,37 +5,38 @@ namespace Admin.API.Data
     internal class CategoryMessage
     {
         public string Action { get; set; }
-        public SimpleCategory Category { get; set; }
+        public CategoryItem Category { get; set; }
 
-        public CategoryMessage(string action, SimpleCategory category)
+        public CategoryMessage(string action, CategoryItem category)
         {
             Action = action;
             Category = category;
         }
 
         public static CategoryMessage CreateAdd(Category category) 
-            => new CategoryMessage("AddCategory", SimpleCategory.From(category));
+            => new CategoryMessage("AddCategory", CategoryItem.From(category));
         public static CategoryMessage CreateUpdate(Category category)
-            => new CategoryMessage("UpdateCategory", SimpleCategory.From(category));
+            => new CategoryMessage("UpdateCategory", CategoryItem.From(category));
         public static CategoryMessage CreateMove(Category category)
-            => new CategoryMessage("MoveCategory", SimpleCategory.From(category));
+            => new CategoryMessage("MoveCategory", CategoryItem.From(category));
         public static CategoryMessage CreateDelete(Category category)
-            => new CategoryMessage("DeleteCategory", SimpleCategory.From(category));
+            => new CategoryMessage("DeleteCategory", CategoryItem.From(category));
     }
 
-    public class SimpleCategory
+    public class CategoryItem
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public int? ParentId { get; set; }
 
-        public static SimpleCategory From(Category category)
+        public static CategoryItem From(Category category)
         {
-            return new SimpleCategory()
+            var pId = category.ParentId==null ? 0 : category.ParentId;
+            return new CategoryItem()
             {
                 Id = category.Id,
                 Name = category.Name,
-                ParentId = category.ParentId
+                ParentId = pId
             };
         }
     }

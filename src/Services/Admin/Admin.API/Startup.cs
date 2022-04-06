@@ -4,19 +4,22 @@ using Admin.API.Repository;
 using Admin.API.Repository.Interfaces;
 using Admin.API.Services;
 using Admin.API.Services.Interfaces;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using Microsoft.IdentityModel.Logging;
 
 namespace Admin.API
 {
@@ -55,6 +58,22 @@ namespace Admin.API
             });
 
             services.AddSingleton(_rabbitMqService);
+
+            services.AddAuthentication("Bearer")
+                   .AddJwtBearer("Bearer", options =>
+                   {
+                       options.Authority = "identity.api";
+                       options.TokenValidationParameters = new TokenValidationParameters
+                       {
+                           ValidateAudience = false
+                       };
+                       options.RequireHttpsMetadata = false;
+                   });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("ClientIdPolicy", policy => policy.RequireClaim("client_id", "shopClient", "shop_mvc_client"));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,8 +86,12 @@ namespace Admin.API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Admin.API v1"));
             }
 
+
+            app.UseHttpsRedirection();
+
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

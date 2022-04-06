@@ -53,6 +53,10 @@ namespace ShopWebApp
                 endpoints.MapControllerRoute(
                   name: "default",
                   pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapControllerRoute(
+                 name: "ProductDetails",
+                 pattern: "{controller=Catalog}/{action=ProductDetails}/{categoryId?}/{productId?}");
             });
         }
     }

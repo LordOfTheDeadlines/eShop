@@ -5,23 +5,23 @@ namespace Admin.API.Data
     public class ProductMessage
     {
         public string Action { get; set; }
-        public SimpleItem Item { get; set; }
+        public ProductItem Item { get; set; }
 
-        public ProductMessage(string action, SimpleItem item)
+        public ProductMessage(string action, ProductItem item)
         {
             Action = action;
             Item = item;
         }
 
         public static ProductMessage CreateAdd(Product item)
-            => new ProductMessage("AddItem", SimpleItem.From(item));
+            => new ProductMessage("AddItem", ProductItem.From(item));
         public static ProductMessage CreateUpdate(Product item)
-            => new ProductMessage("UpdateItem", SimpleItem.From(item));
+            => new ProductMessage("UpdateItem", ProductItem.From(item));
         public static ProductMessage CreateDelete(Product item)
-            => new ProductMessage("DeleteItem", SimpleItem.From(item));
+            => new ProductMessage("DeleteItem", ProductItem.From(item));
     }
 
-    public class SimpleItem
+    public class ProductItem
     {
         public int Id { get; set; }
         public int CategoryId { get; set; }
@@ -29,9 +29,9 @@ namespace Admin.API.Data
         public double Price { get; set; }
         public string ImageUrl { get; set; }
 
-        public static SimpleItem From(Product item)
+        public static ProductItem From(Product item)
         {
-            return new SimpleItem()
+            return new ProductItem()
             {
                 Id = item.Id,
                 Name = item.Name,

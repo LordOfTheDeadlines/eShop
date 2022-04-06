@@ -30,10 +30,10 @@ namespace ShopWebApp.Controllers
             return View(await _catalogService.GetCategoryAssortment(id));
         }
 
-        //public async Task<ActionResult> ProductDetailsAsync(int id)
-        //{
-        //    var category = await _catalogService.GetCategoryAssortment(categoryId);
-        //    return View(category.Items.FirstOrDefault(p=>p.Id==productId));
-        //}
+        public async Task<ActionResult> ProductDetails(int categoryId, int productId)
+        {
+            var product = await _catalogService.GetProductDetails(categoryId, productId);
+            return View(product);
+        }
     }
 }

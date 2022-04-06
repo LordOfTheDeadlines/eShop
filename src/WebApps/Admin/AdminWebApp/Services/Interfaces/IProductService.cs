@@ -11,8 +11,8 @@ namespace AdminWebApp.Services.Interfaces
         Task<IEnumerable<Product>> GetProducts();
         Task<Product> GetProduct(int id);
         Task<Product> CreateProduct(Product model);
-        Task<Product> UpdateProduct(Product model);
-        Task<Product> DeleteProduct(int id);
+        Task<bool> UpdateProduct(Product model);
+        Task<bool> DeleteProduct(int id);
 
     }
 }

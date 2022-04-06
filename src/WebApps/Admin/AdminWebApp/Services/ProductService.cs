@@ -28,10 +28,10 @@ namespace AdminWebApp.Services
                 throw new Exception("Something went wrong when calling api.");
             }
         }
-        public async Task<Product> DeleteProduct(int id)
+        public async Task<bool> DeleteProduct(int id)
         {
             var response = await _client.DeleteAsync($"/api/v1/Product/{id}");
-            return await response.ReadContentAs<Product>();
+            return await response.ReadContentAs<bool>();
         }
         public async Task<Product> GetProduct(int id)
         {
@@ -44,11 +44,11 @@ namespace AdminWebApp.Services
             var response = await _client.GetAsync("/api/v1/Product");
             return await response.ReadContentAs<List<Product>>();
         }
-        public async Task<Product> UpdateProduct(Product model)
+        public async Task<bool> UpdateProduct(Product model)
         {
             var response = await _client.PutAsJson($"/api/v1/Product", model);
             if (response.IsSuccessStatusCode)
-                return await response.ReadContentAs<Product>();
+                return await response.ReadContentAs<bool>();
             else
             {
                 throw new Exception("Something went wrong when calling api.");

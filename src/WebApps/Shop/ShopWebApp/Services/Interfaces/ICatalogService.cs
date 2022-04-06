@@ -10,5 +10,6 @@ namespace ShopWebApp.Services.Interfaces
     {
         Task<IEnumerable<CategoryAssortment>> GetCatalog();
         Task<CategoryAssortment> GetCategoryAssortment(int id);
+        Task<Product> GetProductDetails(int categoryId, int productId);
     }
 }
