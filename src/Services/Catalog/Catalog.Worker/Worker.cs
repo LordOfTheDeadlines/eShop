@@ -55,11 +55,11 @@ namespace Catalog.Worker
             else if (message.Item == null)
                 _logger.LogError("Message error. Message is empty, data is null: " + message.Action);
             else if (message.Action == "AddItem")
-                _catalogService.AddItem(message.Item);
+                _catalogService.AddProduct(message.Item);
             else if (message.Action == "UpdateItem")
-                _catalogService.UpdateItem(message.Item);
+                _catalogService.UpdateProduct(message.Item);
             else if (message.Action == "DeleteItem")
-                _catalogService.DeleteItem(message.Item);
+                _catalogService.DeleteProduct(message.Item);
             else
                 _logger.LogError("Message error. Unknown action in item message: " + message.Action);
         }

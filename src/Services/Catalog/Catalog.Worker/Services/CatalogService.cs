@@ -26,20 +26,20 @@ namespace Catalog.Worker.Services
             _logger.LogInformation("Connected to mongodb");
         }
 
-        public void AddItem(ProductModel item)
+        public void AddProduct(ProductModel item)
         {
             _logger.LogInformation($"Adding item {item.Name}");
             var category = GetCategoryById(item.CategoryId);
             if (category != null)
             {
-                AddItemToCategory(item, category);
+                AddProductToCategory(item, category);
                 Save(category);
             }
             else
                 Fail($"Item {item.Name} was not added: catategory doesn't exist");
         }
 
-        public void UpdateItem(ProductModel item)
+        public void UpdateProduct(ProductModel item)
         {
             _logger.LogInformation($"Updating item {item.Id} - {item.Name}");
             var category = GetCategoryById(item.CategoryId);
@@ -53,15 +53,15 @@ namespace Catalog.Worker.Services
                     var wrongCategory = GetCategoryOfItem(item.Id);
                     if (wrongCategory != null)
                     {
-                        RemoveItemFromCategory(item, wrongCategory);
+                        RemoveProductFromCategory(item, wrongCategory);
                         Save(wrongCategory);
                     }
-                    AddItemToCategory(item, category);
+                    AddProductToCategory(item, category);
                 }
                 else //если не изменилась обновить
                 {
-                    RemoveItemFromCategory(oldItem, category);
-                    AddItemToCategory(item, category);
+                    RemoveProductFromCategory(oldItem, category);
+                    AddProductToCategory(item, category);
                 }
                 Save(category);
             }
@@ -71,13 +71,13 @@ namespace Catalog.Worker.Services
             }
         }
 
-        public void DeleteItem(ProductModel item)
+        public void DeleteProduct(ProductModel item)
         {
             _logger.LogInformation($"Deleting item {item.Id} - {item.Name}");
             var category = GetCategoryById(item.CategoryId);
             if (category != null)
             {
-                RemoveItemFromCategory(item, category);
+                RemoveProductFromCategory(item, category);
                 Save(category);
             }
             else
@@ -147,7 +147,6 @@ namespace Catalog.Worker.Services
             }
         }
 
-        #region Simple Category operations
         private CategoryAssortment GetCategoryById(int id)
         {
             return _context.Catalog.Find(c => c.Id == id).FirstOrDefault();
@@ -181,22 +180,20 @@ namespace Catalog.Worker.Services
         {
             return _context.Catalog.Find(c => c.ChildCategories.Any(x => x.Id == categoryId)).FirstOrDefault();
         }
-        #endregion
 
-        #region Simple items operations
-        private void AddItemToCategory(ProductModel item, CategoryAssortment category)
+        private void AddProductToCategory(ProductModel item, CategoryAssortment category)
         {
             _logger.LogInformation($"Adding item {item.Id} - {item.Name} to category {category.Id} - {category.Name}");
             category.Items.Add(Product.From(item));
         }
 
-        private void RemoveItemFromCategory(Product item, CategoryAssortment category)
+        private void RemoveProductFromCategory(Product item, CategoryAssortment category)
         {
             _logger.LogInformation($"Removing item {item.Id} - {item.Name} from category {category.Id} - {category.Name}");
             category.Items.RemoveAll(x => x.Id == item.Id);
         }
 
-        private void RemoveItemFromCategory(ProductModel item, CategoryAssortment category)
+        private void RemoveProductFromCategory(ProductModel item, CategoryAssortment category)
         {
             _logger.LogInformation($"Removing item {item.Id} - {item.Name} from category {category.Id} - {category.Name}");
             category.Items.RemoveAll(x => x.Id == item.Id);
@@ -206,7 +203,7 @@ namespace Catalog.Worker.Services
         {
             return _context.Catalog.Find(c => c.Items.Any(c => c.Id == itemId)).FirstOrDefault();
         }
-        #endregion
+
         private void Save(CategoryAssortment category)
         {
             _context.Catalog.ReplaceOne(x => x.Id == category.Id, category);

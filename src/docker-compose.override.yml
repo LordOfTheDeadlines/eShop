@@ -134,10 +134,10 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
-      - 'ConnectionStrings:AuthConnectionString=Server=identityserverdb;Database=IdentityServerDb;User Id=sa;Password=Vonyuchka_Ne_Stavitsya!!1609!!'
+      - 'ConnectionStrings:AuthConnectionString=Server=tcp:identitydb;Database=IdentityDb;User Id=sa;Password=Vonyuchka_Ne_Stavitsya!!1609!!'
     ports:
       - "5002:80"
       - "5003:443"
-    volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+    #volumes:
+    #  - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+    #  - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro

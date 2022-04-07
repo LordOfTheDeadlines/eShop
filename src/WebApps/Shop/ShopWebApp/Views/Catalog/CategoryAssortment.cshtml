@@ -13,7 +13,7 @@
         <h4>Check in subcategories</h4>
         @foreach (var item in Model.ChildCategories)
         {
-            @Html.ActionLink(item.Name, "CategoryAssortment", new { id = @item.Id })
+            <li>@Html.ActionLink(item.Name, "CategoryAssortment", new { id = @item.Id })</li>
         }
     }
     else
