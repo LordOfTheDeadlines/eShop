@@ -2,11 +2,13 @@ using System.IO;
 using Identity.API.Data;
 using Identity.API.Extensions;
 using IdentityServer4.EntityFramework.DbContexts;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using System.Net;
 
 namespace Identity.API
 {
@@ -37,7 +39,17 @@ namespace Identity.API
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    webBuilder
+                    //.UseKestrel(options =>
+                    //{
+                    //    options.Listen(IPAddress.Any, 443, listenOptions =>
+                    //    {
+                    //        var configuration = (IConfiguration)options.ApplicationServices.GetService(typeof(IConfiguration));
+
+                    //        listenOptions.UseHttps("cert.pfx", configuration["certPassword"]);
+                    //    });
+                    //})
+                    .UseStartup<Startup>();
                 });
 
         private static IConfiguration GetConfiguration()

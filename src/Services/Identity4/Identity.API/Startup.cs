@@ -1,6 +1,5 @@
 using System;
 using System.Reflection;
-using Identity.API.Certificates;
 using Identity.API.Data;
 using Identity.API.Models;
 using Identity.API.Services;
@@ -18,6 +17,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Logging;
+using Microsoft.AspNetCore.Rewrite;
 
 namespace Identity.API
 {
@@ -58,8 +58,8 @@ namespace Identity.API
                 // x.IssuerUri = "null";
                 x.Authentication.CookieLifetime = TimeSpan.FromHours(2);
             })
-            .AddDevspacesIfNeeded(Configuration.GetValue("EnableDevspaces", false))
-            .AddSigningCredential(Certificate.Get())
+            //.AddDevspacesIfNeeded(Configuration.GetValue("EnableDevspaces", false))
+            .AddDeveloperSigningCredential()
             .AddAspNetIdentity<ApplicationUser>()
             .AddConfigurationStore(opts =>
             {
@@ -123,6 +123,11 @@ namespace Identity.API
             });
 
             app.UseForwardedHeaders();
+
+            var options = new RewriteOptions()
+                .AddRedirectToHttps();
+
+            app.UseRewriter(options);
 
             app.UseIdentityServer();
 

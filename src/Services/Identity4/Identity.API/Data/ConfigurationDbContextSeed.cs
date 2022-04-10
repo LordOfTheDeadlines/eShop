@@ -15,7 +15,8 @@ namespace Identity.API.Data
             {
                 var clientUrls = new Dictionary<string, string>
                 {
-                    ["AspNetRunBasics"] = configuration.GetValue<string>("AspNetRunBasicsClient"),
+                    ["AdminWebApp"] = configuration.GetValue<string>("AdminWebApp"),
+                    ["ShopWebApp"] = configuration.GetValue<string>("ShopWebApp"),
                 };
 
                 foreach (var client in Config.GetClients(clientUrls))

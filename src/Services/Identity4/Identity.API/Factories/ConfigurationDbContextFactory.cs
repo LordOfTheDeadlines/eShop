@@ -20,7 +20,7 @@ namespace Identity.API.Factories
             var optionsBuilder = new DbContextOptionsBuilder<ConfigurationDbContext>();
             var storeOptions = new ConfigurationStoreOptions();
 
-            optionsBuilder.UseSqlServer(config.GetConnectionString("IdentityConnectionString"), sqlServerOptionsAction: o => o.MigrationsAssembly("Identity.API"));
+            optionsBuilder.UseSqlServer(config.GetConnectionString("AuthConnectionString"), sqlServerOptionsAction: o => o.MigrationsAssembly("Identity.API"));
 
             return new ConfigurationDbContext(optionsBuilder.Options, storeOptions);
         }

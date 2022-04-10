@@ -11,41 +11,42 @@ namespace Identity.API
             {
                 new Client
                 {
-                    ClientId = "aspnetrunbasicsClient",
-                    ClientName = "AspNetRunBasics",
+                    ClientId = "adminClient",
+                    ClientName = "Admin",
                     ClientSecrets = new List<Secret>
                     {
-                        new Secret("AspNetRunBasicsSecrets".Sha256())
+                        new Secret("AdminSecrets".Sha256())
                     },
-                    ClientUri = $"{clientsUrl["AspNetRunBasics"]}",
+                    ClientUri = $"{clientsUrl["AdminWebApp"]}",
                     AllowedGrantTypes = GrantTypes.Hybrid,
                     AllowAccessTokensViaBrowser = true,
                     RequireConsent = false,
                     AllowOfflineAccess = true,
-                    RedirectUris = {$"{clientsUrl["AspNetRunBasics"]}/signin-oidc"},
-                    PostLogoutRedirectUris = {$"{clientsUrl["AspNetRunBasics"]}/signout-callback-oidc"},
+                    RedirectUris = {$"{clientsUrl["AdminWebApp"]}/signin-oidc"},
+                    PostLogoutRedirectUris = {$"{clientsUrl["AdminWebApp"]}/signout-callback-oidc"},
                     AllowedScopes =
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
-                        "basket.checkout",
+                        "AdminWebApp",
                     },
                     // for dev need to set 'false' [GrantTypes.Hybrid]
                     RequirePkce = false,
                 },
                 new Client
                 {
-                    ClientId = "basketapiClient",
-                    ClientName = "Basket.API",
-                    ClientSecrets = { new Secret("BasketAPISecrets".Sha256()) },
+                    ClientId = "shopClient",
+                    ClientName = "Catalog.API",
+                    ClientSecrets = { new Secret("CatalogAPISecrets".Sha256()) },
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
-                    AllowedScopes = {"basket.checkout"},
+                    AllowedScopes = {"ShopWebApp"},
                 },
             };
         public static IEnumerable<ApiScope> GetApiScopes() =>
             new List<ApiScope>
             {
-                new ApiScope("basket.checkout"),
+                new ApiScope("AdminWebApp"),
+                new ApiScope("ShopWebApp")
             };
 
         public static IEnumerable<IdentityResource> GetIdentityResources() =>
@@ -58,7 +59,8 @@ namespace Identity.API
         public static IEnumerable<ApiResource> GetApiResources() =>
             new List<ApiResource>
             {
-                new ApiResource("Basket.API", "Basket Service"){ Scopes = { "basket.checkout" }},
+                new ApiResource("Admin.API", "Admin Service"){ Scopes = { "AdminWebApp" }},
+                new ApiResource("Catalog.API", "Catalog Service"){ Scopes = { "ShopWebApp" }},
             };
     }
 }
