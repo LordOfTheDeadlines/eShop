@@ -34,27 +34,21 @@ namespace AdminWebApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            ServicePointManager
-                .ServerCertificateValidationCallback +=
-                (sender, cert, chain, sslPolicyErrors) => true;
-            services.AddHttpClient(typeof(OpenIddictValidationSystemNetHttpOptions).Assembly.GetName().Name)
-                .ConfigurePrimaryHttpMessageHandler(_ => new HttpClientHandler
-                {
-                    ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
-                });
             services.AddHttpContextAccessor();
 
             services.AddTransient<AuthenticationDelegatingHandler>();
 
             services.AddHttpClient<IProductService, ProductService>(c =>
-                c.BaseAddress = new Uri(Configuration["ApiSettings:GatewayAddress"]));
+                c.BaseAddress = new Uri(Configuration["ApiSettings:GatewayAddress"]))
+                .AddHttpMessageHandler<AuthenticationDelegatingHandler>();
 
             services.AddHttpClient<ICategoryService, CategoryService>(c =>
-                c.BaseAddress = new Uri(Configuration["ApiSettings:GatewayAddress"]));
+                c.BaseAddress = new Uri(Configuration["ApiSettings:GatewayAddress"]))
+                .AddHttpMessageHandler<AuthenticationDelegatingHandler>();
 ;
             services.AddControllersWithViews();
 
-            services.AddCustomAuthentication(Configuration);
+            //services.AddCustomAuthentication(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -73,11 +67,11 @@ namespace AdminWebApp
             app.UseStaticFiles();
 
             app.UseCookiePolicy(new CookiePolicyOptions { MinimumSameSitePolicy = Microsoft.AspNetCore.Http.SameSiteMode.Lax });
+            
 
             app.UseRouting();
 
             app.UseAuthentication();
-            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

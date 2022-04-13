@@ -2,15 +2,32 @@
   "Routes": [
     //Admin API
     {
+      "DownstreamPathTemplate": "/api/v1",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "admin.api",
+          "Port": "8000"
+        }
+      ],
+      "UpstreamPathTemplate": "/Product",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT" ],
+      "FileCacheOptions": { "TtlSeconds": 30 },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "IdentityApiKey",
+        "AllowedScopes": []
+      }
+    },
+    {
       "DownstreamPathTemplate": "/api/v1/Admin",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
+          "Host": "admin.api",
           "Port": "8000"
         }
       ],
-      "UpstreamPathTemplate": "/Admin",
+      "UpstreamPathTemplate": "/Category",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT" ],
       "FileCacheOptions": { "TtlSeconds": 30 },
       "AuthenticationOptions": {
@@ -23,7 +40,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
+          "Host": "admin.api",
           "Port": "8000"
         }
       ],
@@ -37,7 +54,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
+          "Host": "admin.api",
           "Port": "8000"
         }
       ],
@@ -50,7 +67,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
+          "Host": "admin.api",
           "Port": "8000"
         }
       ],
@@ -62,7 +79,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
+          "Host": "admin.api",
           "Port": "8000"
         }
       ],

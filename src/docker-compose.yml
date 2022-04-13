@@ -67,9 +67,16 @@ services:
       context: .
       dockerfile: Services/Auth/Auth.API/Dockerfile
 
+  authwebapp:
+    image: ${DOCKER_REGISTRY-}authwebapp
+    build:
+      context: .
+      dockerfile: WebApps/Auth2/AuthWebApp/Dockerfile
+
 volumes:
   postgres_data:
   mongo_data:
+
 
 
 
