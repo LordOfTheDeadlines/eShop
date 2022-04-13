@@ -68,13 +68,13 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - "ApiSettings:GatewayAddress=http://admin.api"
       - "ApiSettings:IdentityAddress=https://identity.api"
-    depends_on:
-    - admin.api
+      #- ASPNETCORE_URLS=https://+:443;http://+:80
     ports:
       - "5000:80"
-    volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+      #- "5004:443"
+    #volumes:
+    #  - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+    #  - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
 
   catalog.api:
     container_name: catalog.api
@@ -113,22 +113,22 @@ services:
     ports:
       - '1434:1433'
 
-  ocelotapigw:
-    container_name: ocelotapigw
+
+  #identity.api:
+  #  environment:
+  #    - ASPNETCORE_ENVIRONMENT=Development
+  #    #- ASPNETCORE_URLS=https://+:443;http://+:80
+  #    - 'ConnectionStrings:AuthConnectionString=Server=tcp:identitydb;Database=IdentityDb;User Id=sa;Password=Vonyuchka_Ne_Stavitsya!!1609!!'
+  #  ports:
+  #    - "5002:80"
+  #  #  - "5003:443"
+  #  #volumes:
+  #  #  - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+  #  #  - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+
+  auth.api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
-      - "80"
+      - "8005:80"
 
-
-  identity.api:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
-      - 'ConnectionStrings:AuthConnectionString=Server=tcp:identitydb;Database=IdentityDb;User Id=sa;Password=Vonyuchka_Ne_Stavitsya!!1609!!'
-    ports:
-      - "5002:80"
-      - "5003:443"
-    volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro

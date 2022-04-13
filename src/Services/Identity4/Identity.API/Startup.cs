@@ -19,6 +19,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.AspNetCore.Rewrite;
 using Identity.API.Certificates;
+using System.Net.Http;
 
 namespace Identity.API
 {
@@ -46,6 +47,8 @@ namespace Identity.API
                 });
             });
 
+
+
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
@@ -60,8 +63,8 @@ namespace Identity.API
                 x.Authentication.CookieLifetime = TimeSpan.FromHours(2);
             })
             .AddDevspacesIfNeeded(Configuration.GetValue("EnableDevspaces", false))
-            .AddDeveloperSigningCredential()
-            //.AddSigningCredential(Certificate.Get())
+            //.AddDeveloperSigningCredential()
+            .AddSigningCredential(Certificate.Get())
             .AddAspNetIdentity<ApplicationUser>()
             .AddConfigurationStore(opts =>
             {

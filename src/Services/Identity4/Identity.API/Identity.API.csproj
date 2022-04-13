@@ -8,6 +8,14 @@
     <DockerfileContext>..\..\..</DockerfileContext>
   </PropertyGroup>
 
+	<ItemGroup>
+		<None Remove="cerf.pfx" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Include="cerf.pfx" />
+	</ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="CertificateManager" Version="1.0.8" />
     <PackageReference Include="IdentityServer4" Version="4.1.2" />

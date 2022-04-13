@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Net;
+using System.Net.Http;
 
 namespace AdminWebApp.Extensions
 {
@@ -20,13 +22,12 @@ namespace AdminWebApp.Extensions
             services.AddAuthentication(opts =>
             {
                 opts.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                opts.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
+                //opts.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
             })
             .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme,
                 setup => setup.ExpireTimeSpan = TimeSpan.FromMinutes(sessionCookieLifetime))
             .AddOpenIdConnect(OpenIdConnectDefaults.AuthenticationScheme, opts =>
             {
-                // opts.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                 opts.Authority = identityUrl;
 
                 opts.ClientId = clientId;
@@ -39,11 +40,7 @@ namespace AdminWebApp.Extensions
                 opts.GetClaimsFromUserInfoEndpoint = true;
 
                 opts.RequireHttpsMetadata = false;
-
-                // scopes
-                // opts.Scope.Add("openid");
-                // opts.Scope.Add("profile");
-                opts.Scope.Add("basket.checkout");
+                opts.Scope.Add("AdminWebApp");
             });
 
             return services;

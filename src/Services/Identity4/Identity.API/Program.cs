@@ -40,15 +40,15 @@ namespace Identity.API
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder
-                    //.UseKestrel(options =>
-                    //{
-                    //    options.Listen(IPAddress.Any, 443, listenOptions =>
-                    //    {
-                    //        var configuration = (IConfiguration)options.ApplicationServices.GetService(typeof(IConfiguration));
+                    .UseKestrel(options =>
+                    {
+                        options.Listen(IPAddress.Any, 443, listenOptions =>
+                        {
+                            var configuration = (IConfiguration)options.ApplicationServices.GetService(typeof(IConfiguration));
 
-                    //        listenOptions.UseHttps("cert.pfx", configuration["certPassword"]);
-                    //    });
-                    //})
+                            listenOptions.UseHttps("cerf.pfx", "pass");
+                        });
+                    })
                     .UseStartup<Startup>();
                 });
 

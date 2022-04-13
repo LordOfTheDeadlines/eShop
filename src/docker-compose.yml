@@ -54,21 +54,23 @@ services:
   identitydb:
     image: mcr.microsoft.com/mssql/server
 
-  ocelotapigw:
-    image: ${DOCKER_REGISTRY-}ocelotapigw
-    build:
-      context: .
-      dockerfile: ApiGateway/OcelotApiGw/Dockerfile
 
-  identity.api:
-    image: ${DOCKER_REGISTRY-}identityapi
+  #identity.api:
+  #  image: ${DOCKER_REGISTRY-}identityapi
+  #  build:
+  #    context: .
+  #    dockerfile: Services/Identity/Identity.API/Dockerfile
+
+  auth.api:
+    image: ${DOCKER_REGISTRY-}authapi
     build:
       context: .
-      dockerfile: Services/Identity4/Identity.API/Dockerfile
+      dockerfile: Services/Auth/Auth.API/Dockerfile
 
 volumes:
   postgres_data:
   mongo_data:
+
 
 
 

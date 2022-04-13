@@ -15,7 +15,6 @@ using System.Threading.Tasks;
 
 namespace AdminWebApp.Controllers
 {
-    [Authorize(AuthenticationSchemes = OpenIdConnectDefaults.AuthenticationScheme)]
     public class CategoryController : Controller
     {
         private readonly ICategoryService _categoryService;

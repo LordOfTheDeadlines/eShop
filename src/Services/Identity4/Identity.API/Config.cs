@@ -59,8 +59,8 @@ namespace Identity.API
         public static IEnumerable<ApiResource> GetApiResources() =>
             new List<ApiResource>
             {
-                new ApiResource("Admin.API", "Admin Service"){ Scopes = { "AdminWebApp" }},
-                new ApiResource("Catalog.API", "Catalog Service"){ Scopes = { "ShopWebApp" }},
+                new ApiResource("AdminWebApp", "Admin Service"){ Scopes = { "AdminWebApp" }},
+                new ApiResource("ShopWebApp", "Catalog Service"){ Scopes = { "ShopWebApp" }},
             };
     }
 }

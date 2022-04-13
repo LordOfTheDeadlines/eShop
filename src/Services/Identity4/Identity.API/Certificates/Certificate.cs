@@ -18,7 +18,7 @@ namespace Identity.API.Certificates
             **********************************************************************************************/
             using var stream = assembly.GetManifestResourceStream(names[0]);
 
-            return new X509Certificate2(ReadStream(stream), "idsrv3test");
+            return new X509Certificate2(ReadStream(stream), "pass");
         }
 
         private static byte[] ReadStream(Stream input)
