@@ -72,6 +72,9 @@ services:
     - admin.api
     ports:
       - "5000:80"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
 
   catalog.api:
     container_name: catalog.api

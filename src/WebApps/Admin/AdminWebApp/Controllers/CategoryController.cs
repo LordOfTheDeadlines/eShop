@@ -1,6 +1,7 @@
 ﻿using AdminWebApp.Models;
 using AdminWebApp.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,6 +15,7 @@ using System.Threading.Tasks;
 
 namespace AdminWebApp.Controllers
 {
+    [Authorize(AuthenticationSchemes = OpenIdConnectDefaults.AuthenticationScheme)]
     public class CategoryController : Controller
     {
         private readonly ICategoryService _categoryService;
