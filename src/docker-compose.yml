@@ -17,6 +17,9 @@ services:
   admindb:
     image: postgres
 
+  basketdb:
+    image: redis:alpine
+
 
   admin.api:
     image: ${DOCKER_REGISTRY-}admin.api

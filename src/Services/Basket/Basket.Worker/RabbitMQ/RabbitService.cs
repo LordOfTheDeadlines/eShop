@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Basket.Worker.RabbitMQ
 {
-    class RabbitSevice
+    class RabbitService
     {
         private const string TAG = "rabbitmq service: ";
 
