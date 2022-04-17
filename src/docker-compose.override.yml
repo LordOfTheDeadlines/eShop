@@ -122,11 +122,3 @@ services:
     ports:
       - "8005:80"
 
-
-  authwebapp:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - "ApiSettings:GatewayAddress=http://auth.api"
-    ports:
-      - "5002:80"
-

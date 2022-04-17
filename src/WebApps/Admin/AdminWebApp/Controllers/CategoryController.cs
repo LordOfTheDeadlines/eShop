@@ -23,22 +23,10 @@ namespace AdminWebApp.Controllers
         {
             _categoryService = categoryService ?? throw new ArgumentNullException(nameof(categoryService));
         }
-        public async Task LogTokenAndClaims()
-        {
-            var identityToken = await HttpContext.GetTokenAsync(OpenIdConnectParameterNames.IdToken);
-
-            Debug.WriteLine($"Identity token: {identityToken}");
-
-            foreach (var claim in User.Claims)
-            {
-                Debug.WriteLine($"Claim type: {claim.Type} - Claim value: {claim.Value}");
-            }
-        }
 
         // GET: CategoryController
         public async Task<ActionResult> IndexAsync()
         {
-            //await LogTokenAndClaims();
             return View(await _categoryService.GetCategories());
         }
 

@@ -18,7 +18,7 @@ namespace Auth.API.Controllers
             _tokenService = tokenService;
         }
 
-        [HttpPost("/register")]
+        [HttpPost("/Register")]
         public IActionResult Register([FromBody] RegisterModel registerModel)
         {
             var result = _accountService.Register(registerModel);
@@ -32,7 +32,7 @@ namespace Auth.API.Controllers
                 return BadRequest(result.Message);
         }
 
-        [HttpPost("/login")]
+        [HttpPost("/Login")]
         public IActionResult Login([FromBody] LoginModel loginModel)
         {
             var result = _accountService.Login(loginModel);

@@ -58,23 +58,12 @@ services:
     image: mcr.microsoft.com/mssql/server
 
 
-  #identity.api:
-  #  image: ${DOCKER_REGISTRY-}identityapi
-  #  build:
-  #    context: .
-  #    dockerfile: Services/Identity/Identity.API/Dockerfile
-
   auth.api:
     image: ${DOCKER_REGISTRY-}authapi
     build:
       context: .
       dockerfile: Services/Auth/Auth.API/Dockerfile
 
-  authwebapp:
-    image: ${DOCKER_REGISTRY-}authwebapp
-    build:
-      context: .
-      dockerfile: WebApps/Auth2/AuthWebApp/Dockerfile
 
 volumes:
   postgres_data:
