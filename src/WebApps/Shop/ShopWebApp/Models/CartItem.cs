@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace ShopWebApp.Models
 {
-    public class BasketItem
+    public class CartItem
     {
         public int Quantity { get; set; }
         public string Color { get; set; }

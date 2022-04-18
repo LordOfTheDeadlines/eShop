@@ -1,4 +1,4 @@
-﻿@model Basket
+﻿@model Cart
 @{ ViewData["Title"] = "Basket"; }
 <div class="container">
     <div class="row">
@@ -30,7 +30,7 @@
                     </thead>
                     <tbody>
 
-                        @foreach (var cartItem in Model.Cart.Items)
+                        @foreach (var cartItem in Model.Items)
                         {
                             <tr>
                                 <td><img src="https://dummyimage.com/50x50/55595c/fff" /></td>
@@ -55,7 +55,7 @@
                             <td></td>
                             <td></td>
                             <td><strong>Total</strong></td>
-                            <td class="text-right"><strong>@Model.Cart.TotalPrice $</strong></td>
+                            <td class="text-right"><strong>@Model.TotalPrice $</strong></td>
                         </tr>
                     </tbody>
                 </table>

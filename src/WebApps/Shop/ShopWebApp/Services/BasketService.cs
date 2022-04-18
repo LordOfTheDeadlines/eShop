@@ -18,17 +18,17 @@ namespace ShopWebApp.Services
             _client = client ?? throw new ArgumentNullException(nameof(client));
         }
 
-        public async Task<Basket> GetBasket(string userName)
+        public async Task<Cart> GetBasket(string userName)
         {
             var response = await _client.GetAsync($"/Basket/{userName}");
-            return await response.ReadContentAs<Basket>();
+            return await response.ReadContentAs<Cart>();
         }
 
-        public async Task<Basket> UpdateBasket(Basket model)
+        public async Task<Cart> UpdateBasket(Cart model)
         {
             var response = await _client.PostAsJson($"/Basket", model);
             if (response.IsSuccessStatusCode)
-                return await response.ReadContentAs<Basket>();
+                return await response.ReadContentAs<Cart>();
             else
             {
                 throw new Exception("Something went wrong when calling api.");

@@ -30,7 +30,6 @@ namespace AdminWebApp.Controllers
         public async Task<IActionResult> LoginAsync([Bind("Username,Password")] LoginModel model)
         {
             var response = await _accountService.Login(model);
-            var token = response.
             return View();
         }
 

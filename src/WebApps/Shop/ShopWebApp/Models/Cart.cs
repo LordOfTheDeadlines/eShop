@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace ShopWebApp.Models
 {
-    public class Basket
+    public class Cart
     {
         public string UserName { get; set; }
-        public List<BasketItem> Items { get; set; } = new List<BasketItem>();
+        public List<CartItem> Items { get; set; } = new List<CartItem>();
         public decimal TotalPrice { get; set; }
     }
 }

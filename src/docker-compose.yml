@@ -54,7 +54,7 @@ services:
       context: .
       dockerfile: WebApps/Shop/ShopWebApp/Dockerfile
 
-  identitydb:
+  authdb:
     image: mcr.microsoft.com/mssql/server
 
 

@@ -1,8 +1,12 @@
 using Auth.API.Configuration;
+using Auth.API.Data;
 using Auth.API.Extensions;
+using Auth.API.Services;
+using Auth.API.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -36,7 +40,16 @@ namespace Auth.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<AuthConfiguration>(Configuration.GetSection("JWT"));
+
+            services.AddDbContext<AuthContext>(opts =>
+            {
+                opts.UseSqlServer(Configuration.GetConnectionString("AuthConnectionString"));
+            });
+
+            services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IAccountService, AccountService>();
+
+            services.Configure<AuthConfiguration>(Configuration.GetSection("Authentication"));
 
             services.AddApplicationServices(Configuration);
             services.AddAuth(Configuration);
@@ -52,7 +65,7 @@ namespace Auth.API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public async void ConfigureAsync(IApplicationBuilder app, IWebHostEnvironment env)
+        public async void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {

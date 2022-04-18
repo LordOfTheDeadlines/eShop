@@ -105,8 +105,8 @@ services:
       - "5001:80"
 
 
-  identitydb:
-    container_name: identitydb
+  authdb:
+    container_name: authdb
     user: root
     environment:
       - SA_PASSWORD=Vonyuchka_Ne_Stavitsya!!1609!!
@@ -119,6 +119,7 @@ services:
   auth.api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - "ConnectionStrings:AuthConnectionString=Server=authdb;Database=AuthDb;User Id=sa;Password=Vonyuchka_Ne_Stavitsya!!1609!!"
     ports:
       - "8005:80"
 
