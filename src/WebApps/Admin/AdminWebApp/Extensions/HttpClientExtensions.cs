@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -20,12 +22,32 @@ namespace AdminWebApp.Extensions
             return JsonSerializer.Deserialize<T>(dataAsString, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
         }
 
+        public static Task<HttpResponseMessage> PostAsJson<T>(this HttpClient httpClient, IHttpContextAccessor context, string url, T data)
+        {
+            var dataAsString = JsonSerializer.Serialize(data);
+            var content = new StringContent(dataAsString);
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", context.HttpContext.Request.Cookies["Authorization"]);
+
+            return httpClient.PostAsync(url, content);
+        }
+
+        public static Task<HttpResponseMessage> PutAsJson<T>(this HttpClient httpClient, IHttpContextAccessor context, string url, T data)
+        {
+            var dataAsString = JsonSerializer.Serialize(data);
+            var content = new StringContent(dataAsString);
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", context.HttpContext.Request.Cookies["Authorization"]);
+
+            return httpClient.PutAsync(url, content);
+        }
+
         public static Task<HttpResponseMessage> PostAsJson<T>(this HttpClient httpClient, string url, T data)
         {
             var dataAsString = JsonSerializer.Serialize(data);
             var content = new StringContent(dataAsString);
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-
+            
             return httpClient.PostAsync(url, content);
         }
 
@@ -34,7 +56,7 @@ namespace AdminWebApp.Extensions
             var dataAsString = JsonSerializer.Serialize(data);
             var content = new StringContent(dataAsString);
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-
+           
             return httpClient.PutAsync(url, content);
         }
     }

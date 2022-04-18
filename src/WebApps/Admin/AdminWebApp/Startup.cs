@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -35,20 +36,20 @@ namespace AdminWebApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddHttpContextAccessor();
-
-            services.AddTransient<AuthenticationDelegatingHandler>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddHttpClient<IProductService, ProductService>(c =>
-                c.BaseAddress = new Uri(Configuration["ApiSettings:GatewayAddress"]))
-                .AddHttpMessageHandler<AuthenticationDelegatingHandler>();
+                c.BaseAddress = new Uri(Configuration["ApiSettings:GatewayAddress"]));
 
             services.AddHttpClient<ICategoryService, CategoryService>(c =>
-                c.BaseAddress = new Uri(Configuration["ApiSettings:GatewayAddress"]))
-                .AddHttpMessageHandler<AuthenticationDelegatingHandler>();
-;
-            services.AddControllersWithViews();
+                c.BaseAddress = new Uri(Configuration["ApiSettings:GatewayAddress"]));
 
-            //services.AddCustomAuthentication(Configuration);
+            services.AddHttpClient<IAccountService, AccountService>(c =>
+                c.BaseAddress = new Uri(Configuration["ApiSettings:AuthAddress"]));
+            
+            services.AddControllersWithViews();
+            services.AddAuth(Configuration);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -71,6 +72,7 @@ namespace AdminWebApp
 
             app.UseRouting();
 
+            app.UseAuthorization();
             app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>

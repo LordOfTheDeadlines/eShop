@@ -1,8 +1,11 @@
 ﻿using AdminWebApp.Models;
 using AdminWebApp.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
 namespace AdminWebApp.Controllers
@@ -29,7 +32,15 @@ namespace AdminWebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> LoginAsync([Bind("Username,Password")] LoginModel model)
         {
-            var response = await _accountService.Login(model);
+            var headers = await _accountService.Login(model);
+            //HttpContext.Response.Cookies
+            //    .Append("Authorization", 
+            //    headers.TryGetValues("Authorization",out var value) ? value.First().Replace("Bearer ", "") : null, 
+            //    new CookieOptions()
+            //        {
+            //            Expires = DateTime.Now.AddDays(5)
+            //        });
+            SetCookies("Authorization", headers);
             return View();
         }
 
@@ -37,8 +48,19 @@ namespace AdminWebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> RegisterAsync([Bind("DisplayName,Email,Password,Username")] RegisterModel model)
         {
-            var response = await _accountService.Register(model);
+            var headers = await _accountService.Register(model);
+            SetCookies("Authorization", headers);
             return View();
+        }
+        private void SetCookies(string key, HttpResponseHeaders headers)
+        {
+            HttpContext.Response.Cookies
+               .Append(key,
+               headers.TryGetValues(key, out var value) ? value.First().Replace("Bearer ", "") : null,
+               new CookieOptions()
+               {
+                   Expires = DateTime.Now.AddDays(5)
+               });
         }
     }
 }
