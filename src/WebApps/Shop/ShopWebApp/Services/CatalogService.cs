@@ -30,9 +30,9 @@ namespace ShopWebApp.Services
             return await response.ReadContentAs<CategoryAssortment>();
         }
 
-        public async Task<Product> GetProductDetails(int categoryId, int productId)
+        public async Task<Product> GetProductDetails(int id)
         {
-            var response = await _client.GetAsync($"/api/v1/Catalog/{categoryId}/{productId}");
+            var response = await _client.GetAsync($"/api/v1/Catalog/Product/{id}");
             return await response.ReadContentAs<Product>();
         }
     }

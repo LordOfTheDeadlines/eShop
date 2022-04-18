@@ -25,7 +25,7 @@ namespace ShopWebApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddHttpClient<ICatalogService, CatalogService>(c =>
-                c.BaseAddress = new Uri(Configuration["ApiSettings:GatewayAddress"]));
+                c.BaseAddress = new Uri(Configuration["ApiSettings:AuthAddress"]));
 
             services.AddControllersWithViews();
         }
@@ -53,10 +53,6 @@ namespace ShopWebApp
                 endpoints.MapControllerRoute(
                   name: "default",
                   pattern: "{controller=Home}/{action=Index}/{id?}");
-
-                endpoints.MapControllerRoute(
-                 name: "ProductDetails",
-                 pattern: "{controller=Catalog}/{action=ProductDetails}/{categoryId?}/{productId?}");
             });
         }
     }

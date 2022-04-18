@@ -17,10 +17,11 @@ namespace Catalog.API.Repositories
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
-        public async Task<Product> GetProduct(int categoryId, int productId)
+        public async Task<Product> GetProduct(int productId)
         {
-            var categories = await _context.Catalog.Find(c => c.Id == categoryId).FirstOrDefaultAsync();
-            return categories.Items.FirstOrDefault(p => p.Id == productId);
+            var catAssort = await _context.Catalog.Find(c =>
+                c.Items.Any(i => i.Id == productId)).FirstAsync();
+            return catAssort.Items.Find(i => i.Id == productId);
         }
 
         public async Task<CategoryAssortment> GetCategoryAssortment(int id)

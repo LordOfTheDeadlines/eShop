@@ -47,16 +47,16 @@ namespace Catalog.API.Controllers
         }
 
 
-        [HttpGet("{categoryId}/{productId}", Name = "GetProduct")]
+        [HttpGet("Product/{id}", Name = "GetProduct")]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        [ProducesResponseType(typeof(CategoryAssortment), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<Product>> GetProduct(int categoryId, int productId)
+        [ProducesResponseType(typeof(Product), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<Product>> GetProduct(int id)
         {
-            var product = await _repository.GetProduct(categoryId, productId);
+            var product = await _repository.GetProduct(id);
 
             if (product == null)
             {
-                _logger.LogError($"Product with id: {productId}, not found.");
+                _logger.LogError($"Product with id: {id}, not found.");
                 return NotFound();
             }
 
