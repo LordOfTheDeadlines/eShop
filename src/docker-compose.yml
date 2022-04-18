@@ -65,9 +65,23 @@ services:
       dockerfile: Services/Auth/Auth.API/Dockerfile
 
 
+  basket.api:
+    image: ${DOCKER_REGISTRY-}basketapi
+    build:
+      context: .
+      dockerfile: Services/Basket/Basket.API/Dockerfile
+
+  basket.worker:
+    image: ${DOCKER_REGISTRY-}basketworker
+    build:
+      context: .
+      dockerfile: Services/Basket/Basket.Worker/Dockerfile
+
 volumes:
   postgres_data:
   mongo_data:
+
+
 
 
 
