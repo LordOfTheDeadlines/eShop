@@ -46,7 +46,7 @@ namespace AdminWebApp.Services
         public async Task<IEnumerable<Category>> GetCategories()
         {
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _context.HttpContext.Request.Cookies["Authorization"]);
-            var response = await _client.GetAsync("/api/v1/Category");
+            var response = await _client.GetAsync($"/api/v1/Category");
             return await response.ReadContentAs<List<Category>>();
         }
 

@@ -11,12 +11,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Auth.API
@@ -40,6 +42,8 @@ namespace Auth.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.Configure<AuthConfiguration>(Configuration.GetSection("Authentication"));
+            services.Configure<JWTConfig>(Configuration.GetSection("JWT"));
 
             services.AddDbContext<AuthContext>(opts =>
             {
@@ -49,14 +53,27 @@ namespace Auth.API
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IAccountService, AccountService>();
 
-            services.Configure<AuthConfiguration>(Configuration.GetSection("Authentication"));
-
             services.AddApplicationServices(Configuration);
-            services.AddAuth(Configuration);
+            //services.AddAuth(Configuration);
 
-            services.AddControllers();
+            services.AddAuthentication().AddJwtBearer("users_auth_scheme", options =>
+            {
+                var jwtConfig = new JWTConfig();
+                Configuration.GetSection("JWT").Bind(jwtConfig);
+                options.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfig.Secret)),
+                    ValidAudience = "usersAudience",
+                    ValidIssuer = "usersIssuer",
+                    ValidateIssuerSigningKey = true,
+                    ValidateLifetime = true,
+                    ClockSkew = TimeSpan.Zero
+                };
+            });
 
             services.AddOcelot(OcelotConfiguration);
+
+            services.AddControllers();
 
             services.AddSwaggerGen(c =>
             {

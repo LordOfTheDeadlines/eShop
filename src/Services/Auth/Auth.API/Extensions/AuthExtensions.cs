@@ -14,8 +14,8 @@ namespace Auth.API.Extensions
             services.AddAuthentication().AddJwtBearer("IdentityApiKey", options =>
             {
                 var jwtConfig = new AuthConfiguration();
-                config.GetSection("Authentification").Bind(jwtConfig);
-                options.TokenValidationParameters = new TokenValidationParameters()
+                config.GetSection("Authentication").Bind(jwtConfig);
+                var validationParameters = new TokenValidationParameters()
                 {
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfig.AccessTokenSecret)),
                     ValidAudience = "usersAudience",
@@ -24,6 +24,7 @@ namespace Auth.API.Extensions
                     ValidateLifetime = true,
                     ClockSkew = TimeSpan.Zero
                 };
+                options.TokenValidationParameters = validationParameters;
             });
             return services;
         }

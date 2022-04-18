@@ -39,10 +39,10 @@ namespace AdminWebApp
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddHttpClient<IProductService, ProductService>(c =>
-                c.BaseAddress = new Uri(Configuration["ApiSettings:GatewayAddress"]));
+                c.BaseAddress = new Uri(Configuration["ApiSettings:AuthAddress"]));
 
             services.AddHttpClient<ICategoryService, CategoryService>(c =>
-                c.BaseAddress = new Uri(Configuration["ApiSettings:GatewayAddress"]));
+                c.BaseAddress = new Uri(Configuration["ApiSettings:AuthAddress"]));
 
             services.AddHttpClient<IAccountService, AccountService>(c =>
                 c.BaseAddress = new Uri(Configuration["ApiSettings:AuthAddress"]));

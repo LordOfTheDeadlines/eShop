@@ -59,22 +59,6 @@ namespace Admin.API
             });
 
             services.AddSingleton(_rabbitMqService);
-
-            services.AddAuthentication("Bearer")
-                   .AddJwtBearer("Bearer", options =>
-                   {
-                       options.Authority = "identity.api";
-                       options.TokenValidationParameters = new TokenValidationParameters
-                       {
-                           ValidateAudience = false
-                       };
-                       options.RequireHttpsMetadata = false;
-                   });
-
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("ClientIdPolicy", policy => policy.RequireClaim("client_id", "shopClient", "shop_mvc_client"));
-            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
