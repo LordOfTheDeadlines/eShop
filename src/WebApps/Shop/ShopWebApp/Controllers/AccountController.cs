@@ -1,14 +1,13 @@
-﻿using AdminWebApp.Models;
-using AdminWebApp.Services.Interfaces;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ShopWebApp.Models;
+using ShopWebApp.Services.Interfaces;
 using System;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
-namespace AdminWebApp.Controllers
+namespace ShopWebApp.Controllers
 {
     public class AccountController : Controller
     {

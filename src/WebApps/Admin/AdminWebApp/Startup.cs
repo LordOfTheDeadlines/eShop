@@ -68,7 +68,7 @@ namespace AdminWebApp
             app.UseStaticFiles();
 
             app.UseCookiePolicy(new CookiePolicyOptions { MinimumSameSitePolicy = Microsoft.AspNetCore.Http.SameSiteMode.Lax });
-            
+
 
             app.UseRouting();
 
