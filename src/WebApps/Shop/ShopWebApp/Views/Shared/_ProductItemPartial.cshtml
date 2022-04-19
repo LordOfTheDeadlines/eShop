@@ -13,8 +13,9 @@
 
                 @*<a asp-page="Cart" asp-route-productId="@Model.Id" class="btn btn-success btn-block">Add to Cart</a>*@
 
-                <form asp-page-handler="AddToCart" method="post" name="addToCartForm" id="add_cart_form">
-                    <a href="javascript:;" onclick="parentNode.submit();" class="btn btn-success btn-block">Add to Cart</a>
+                <form asp-page-handler="AddToBasket" method="post" name="addToCartForm" id="add_cart_form">
+                    @*<a href="javascript:;" onclick="parentNode.submit();" class="btn btn-success btn-block">Add to Cart</a>*@
+                    <a class="navbar-brand" asp-area="">@Html.ActionLink("Add to Basket", "AddToBasket", "Basket", new { productId = @Model.Id })</a>
                     <input type="hidden" asp-for="@Model.Id" name="productId" />
                 </form>
 

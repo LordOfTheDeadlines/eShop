@@ -114,7 +114,7 @@
         }
       ],
       "UpstreamPathTemplate": "/api/v1/Basket/{userId}/{productId}",
-      "UpstreamHttpMethod": [ "POST", "DELETE" ],
+      "UpstreamHttpMethod": [ "GET", "POST", "DELETE" ],
       "FileCacheOptions": { "TtlSeconds": 30 }
     }
   ],

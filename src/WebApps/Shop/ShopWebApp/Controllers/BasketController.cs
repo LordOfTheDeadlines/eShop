@@ -30,6 +30,13 @@ namespace ShopWebApp.Controllers
             return View(await _basketService.GetBasket(1));
         }
 
+        public async Task<ActionResult> AddToBasket(int productId)
+        {
+            var userName = "swn";
+            await _basketService.AddToBasket(1, productId);
+            return View(await _basketService.GetBasket(1));
+        }
+
         private void GetCookies()
         {
             var authCookies = HttpContext.Request.Cookies["Authorization"];

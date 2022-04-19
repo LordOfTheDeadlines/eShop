@@ -31,7 +31,7 @@ namespace Basket.API.Controllers
             return await _service.GetBasket(userId);
         }
 
-        [HttpPost("{userId}/{productId}", Name = "AddToBasket")]
+        [HttpGet("{userId}/{productId}", Name = "AddToBasket")]
         [ProducesResponseType(typeof(Cart), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<Cart>> AddToBasket(int userId, int productId)
         {
