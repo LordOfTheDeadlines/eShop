@@ -33,8 +33,8 @@ namespace Basket.Worker
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            _rabbitMq.StartConnection("products");
-            _rabbitMq.Consume("products", ProcessItemMessage);
+            _rabbitMq.StartConnection("basket");
+            _rabbitMq.Consume("basket", ProcessItemMessage);
 
             _logger.LogInformation("Started");
 
@@ -46,7 +46,7 @@ namespace Basket.Worker
 
         private void ProcessItemMessage(string json)
         {
-            _logger.LogInformation("From RabiitMQ (queue = 'products') recieved: " + json);
+            _logger.LogInformation("From RabiitMQ (queue = 'basket') recieved: " + json);
 
             var message = JsonSerializer.Deserialize<ProductMessage>(json);
 

@@ -133,7 +133,7 @@ services:
   basket.worker:
     container_name: basket.worker
     environment:
-      - MONGO_CONNECTION_STRING=mongodb://basketdb:27018
+      - MONGO_CONNECTION_STRING=mongodb://basketdb:27017
       - MONGO_DATABASE=basketdb
       - MONGO_COLLECTION=Basket
       - RABBITMQ_HOST=rabbitmq

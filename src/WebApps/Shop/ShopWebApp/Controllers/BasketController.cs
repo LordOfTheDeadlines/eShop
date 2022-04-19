@@ -34,7 +34,7 @@ namespace ShopWebApp.Controllers
         {
             var userName = "swn";
             await _basketService.AddToBasket(1, productId);
-            return View(await _basketService.GetBasket(1));
+            return RedirectToAction(nameof(Index));
         }
 
         private void GetCookies()

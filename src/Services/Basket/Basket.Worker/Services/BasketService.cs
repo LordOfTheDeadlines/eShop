@@ -31,7 +31,7 @@ namespace Basket.Worker.Services
             var item = Product.From(product);
             _logger.LogInformation($"Updating baskets with item {item.Id} - {item.Name}");
             var baskets = FindBasketsWithProduct(item);
-            if (baskets != null)
+            if (baskets.Count>0)
             {
                 foreach (var basket in baskets){
                     var oldProduct = basket.Items.Find(p => p.Id == item.Id);
@@ -53,7 +53,7 @@ namespace Basket.Worker.Services
             var item = Product.From(product);
             _logger.LogInformation($"Deleting item {item.Id} - {item.Name} from baskets");
             var baskets = FindBasketsWithProduct(item);
-            if (baskets != null)
+            if (baskets.Count>0)
             {
                 foreach (var basket in baskets)
                 {
@@ -70,7 +70,9 @@ namespace Basket.Worker.Services
 
         private ICollection<Cart> FindBasketsWithProduct(Product product)
         {
-            return _context.Baskets.Find(b => b.Items.Any(p => p.Id == product.Id)).ToList();
+            var filter = Builders<Cart>.Filter.ElemMatch(x=>x.Items,x => x.Id == product.Id);
+            var baskets = _context.Baskets.Find(filter);
+            return baskets.ToList();
         }
 
         private void Save(Cart basket)

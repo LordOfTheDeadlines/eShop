@@ -33,7 +33,7 @@ namespace Admin.API
             Configuration = configuration;
 
             Configuration.GetSection("RabbitMQ").Bind(_rabbitMqService.Config);
-            _rabbitMqService.StartConnection("products", "categories");
+            _rabbitMqService.StartConnection("products", "categories", "basket");
         }
 
         public IConfiguration Configuration { get; }

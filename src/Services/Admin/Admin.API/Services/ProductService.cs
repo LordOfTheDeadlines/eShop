@@ -34,7 +34,6 @@ namespace Admin.API.Services
                 _logger.LogDebug("Product was created");
 
                 _rabbitMq.Publish("products", JsonSerializer.Serialize(ProductMessage.CreateAdd(product)));
-
             }
 
             return result;
@@ -49,6 +48,7 @@ namespace Admin.API.Services
             {
                 _logger.LogDebug("Product was deleted");
                 _rabbitMq.Publish("products", JsonSerializer.Serialize(ProductMessage.CreateDelete(deletedProduct.Result)));
+                _rabbitMq.Publish("basket", JsonSerializer.Serialize(BasketMessage.CreateDelete(deletedProduct.Result)));
             }
             return result;
         }
@@ -71,10 +71,10 @@ namespace Admin.API.Services
             var result = _repository.UpdateProduct(product);
             if (result.Result)
             {
-                _logger.LogDebug("Category was updated");
+                _logger.LogDebug("Product was updated");
                 var updatedProduct = _repository.GetProduct(product.Id);
                 _rabbitMq.Publish("products", JsonSerializer.Serialize(ProductMessage.CreateUpdate(updatedProduct.Result)));
-
+                _rabbitMq.Publish("basket", JsonSerializer.Serialize(BasketMessage.CreateUpdate(updatedProduct.Result)));
             }
 
             return result;
