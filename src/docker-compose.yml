@@ -80,17 +80,5 @@ services:
 volumes:
   postgres_data:
   mongo_data:
-
-
-
-
-
-
-
-
-
-
-
-
-
+  basket_data:
 

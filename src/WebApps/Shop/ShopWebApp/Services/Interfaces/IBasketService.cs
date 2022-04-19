@@ -8,8 +8,8 @@ namespace ShopWebApp.Services.Interfaces
 {
     public interface IBasketService
     {
-        Task<Cart> GetBasket(string userName);
-        Task<Cart> UpdateBasket(Cart model);
-        //Task CheckoutBasket(BasketCheckoutModel model);
+        Task<Cart> GetBasket(int userId);
+        Task<Cart> AddToBasket(int userId, int productId);
+        Task DeleteFromBasket(int userId, int productId);
     }
 }

@@ -35,6 +35,9 @@ namespace Basket.API
             services.AddScoped<IBasketRepository, BasketRepository>();
             services.AddScoped<IBasketService, BasketService>();
 
+            services.AddHttpClient<IProductService, ProductService>(c =>
+                c.BaseAddress = new Uri(Configuration["ApiSettings:ProductAddress"]));
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

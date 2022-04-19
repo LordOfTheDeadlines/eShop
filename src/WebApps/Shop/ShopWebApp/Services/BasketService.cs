@@ -18,30 +18,22 @@ namespace ShopWebApp.Services
             _client = client ?? throw new ArgumentNullException(nameof(client));
         }
 
-        public async Task<Cart> GetBasket(string userName)
+        public async Task<Cart> AddToBasket(int userId, int productId)
         {
-            var response = await _client.GetAsync($"/Basket/{userName}");
+            var response = await _client.GetAsync($"/api/v1/Basket/{userId}/{productId}");
             return await response.ReadContentAs<Cart>();
         }
 
-        public async Task<Cart> UpdateBasket(Cart model)
+        public async Task DeleteFromBasket(int userId, int productId)
         {
-            var response = await _client.PostAsJson($"/Basket", model);
-            if (response.IsSuccessStatusCode)
-                return await response.ReadContentAs<Cart>();
-            else
-            {
-                throw new Exception("Something went wrong when calling api.");
-            }
+            await _client.DeleteAsync($"/api/v1/Basket/{userId}");
         }
 
-        //public async Task CheckoutBasket(BasketCheckoutModel model)
-        //{
-        //    var response = await _client.PostAsJson($"/Basket/Checkout", model);
-        //    if (!response.IsSuccessStatusCode)
-        //    {
-        //        throw new Exception("Something went wrong when calling api.");
-        //    }
-        //}
+
+        public async Task<Cart> GetBasket(int userId)
+        {
+            var response = await _client.GetAsync($"/api/v1/Basket/{userId}");
+            return await response.ReadContentAs<Cart>();
+        }
     }
 }

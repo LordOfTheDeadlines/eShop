@@ -34,6 +34,9 @@ namespace ShopWebApp
             services.AddHttpClient<IAccountService, AccountService>(c =>
                 c.BaseAddress = new Uri(Configuration["ApiSettings:AuthAddress"]));
 
+            services.AddHttpClient<IBasketService, BasketService>(c =>
+                c.BaseAddress = new Uri(Configuration["ApiSettings:AuthAddress"]));
+
             services.AddControllersWithViews();
             //services.AddAuth(Configuration);
         }

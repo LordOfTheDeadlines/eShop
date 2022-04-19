@@ -17,22 +17,22 @@ namespace ShopWebApp.Controllers
             _basketService = basketService ?? throw new ArgumentNullException(nameof(basketService));
         }
 
-        public async Task<ActionResult> IndexAsync()
+        public async Task<ActionResult> Index()
         {
             var userName = "swn";
-            return View(await _basketService.GetBasket(userName));
+            return View(await _basketService.GetBasket(1));
         }
 
-        public async Task<ActionResult> EditAsync(string productId)
+        public async Task<ActionResult> EditAsync(int productId)
         {
             var userName = "swn";
-            var basket = await _basketService.GetBasket(userName);
+            await _basketService.DeleteFromBasket(1, productId);
+            return View(await _basketService.GetBasket(1));
+        }
 
-            var item = basket.Items.Single(x => x.ProductId == productId);
-            basket.Items.Remove(item);
-
-            var basketUpdated = await _basketService.UpdateBasket(basket);
-            return View(basket);
+        private void GetCookies()
+        {
+            var authCookies = HttpContext.Request.Cookies["Authorization"];
         }
     }
 }
