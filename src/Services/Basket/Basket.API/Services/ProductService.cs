@@ -29,8 +29,8 @@ namespace Basket.API.Services
 
             var dataAsString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
-            var producrModel = JsonSerializer.Deserialize<ProductModel>(dataAsString, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-            return Product.From(producrModel);
+            var productModel = JsonSerializer.Deserialize<ProductModel>(dataAsString, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            return Product.From(productModel);
         }
     }
 }

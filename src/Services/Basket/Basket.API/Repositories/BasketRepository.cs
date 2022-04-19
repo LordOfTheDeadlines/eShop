@@ -22,6 +22,11 @@ namespace Basket.API.Repositories
 
         public async Task<Cart> GetBasket(int userId)
         {
+            var basket = await _context.Baskets.Find(b => b.UserId == userId).FirstOrDefaultAsync();
+            if (basket == null)
+            {
+                _context.Baskets.InsertOne(new Cart(userId));
+            }
             return await _context.Baskets.Find(b => b.UserId == userId).FirstOrDefaultAsync();
         }
 
@@ -30,17 +35,17 @@ namespace Basket.API.Repositories
             var basket = await _context.Baskets.Find(b => b.UserId == userId).FirstOrDefaultAsync();
             if (basket == null)
             {
-                basket.Items.Add(product);
-                Save(basket);
+                _context.Baskets.InsertOne(new Cart(userId));
             }
-
+            basket.Items.Add(product);
+            Save(basket);
             return await GetBasket(basket.UserId);
         }
 
         public async Task DeleteFromBasket(int userId, int productId)
         {
             var basket = await _context.Baskets.Find(b => b.UserId == userId).FirstOrDefaultAsync();
-            if(basket == null)
+            if(basket != null)
             {
                 var productToDelete = basket.Items.Find(p=>p.Id==productId);
                 basket.Items.Remove(productToDelete);

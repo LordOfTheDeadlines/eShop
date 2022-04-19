@@ -5,7 +5,7 @@
         <div class="col">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a asp-page="Index">Home</a></li>
+                    @*<li class="breadcrumb-item"><a asp-page="Index">Home</a></li>*@
                     <li class="breadcrumb-item active" aria-current="page">Cart</li>
                 </ol>
             </nav>
@@ -32,7 +32,7 @@
                         @foreach (var cartItem in Model.Items)
                         {
                             <tr>
-                                <td><img src="https://dummyimage.com/50x50/55595c/fff" /></td>
+                                <td><img style="max-width:50px" src="@cartItem.ImageUrl" /></td>
                                 <td>@cartItem.Name</td>
                                 <td>In stock</td>
                                 <td class="text-right">@(cartItem.Price) $</td>
@@ -63,11 +63,11 @@
             <div class="row">
                 <div class="col-sm-12  col-md-6">
                     @*<button class="btn btn-lg btn-block btn-danger">Continue Shopping</button>*@
-                    <a asp-page="Product" class="btn btn-lg btn-block btn-success">Continue Shopping</a>
+                    @*<a asp-page="Product" class="btn btn-lg btn-block btn-success">Continue Shopping</a>*@
                 </div>
                 <div class="col-sm-12 col-md-6 text-right">
                     @*<button class="btn btn-lg btn-block btn-danger text-uppercase">CheckOut</button>*@
-                    <a asp-page="CheckOut" class="btn btn-lg btn-block btn-danger text-uppercase">CheckOut</a>
+                    @*<a asp-page="CheckOut" class="btn btn-lg btn-block btn-danger text-uppercase">CheckOut</a>*@
                 </div>
             </div>
         </div>
