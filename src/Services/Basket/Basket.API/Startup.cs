@@ -1,5 +1,9 @@
+using Basket.API.Data.Context;
+using Basket.API.Data.Context.Interfaces;
 using Basket.API.Repositories;
 using Basket.API.Repositories.Interfaces;
+using Basket.API.Services;
+using Basket.API.Services.Interface;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -27,14 +31,9 @@ namespace Basket.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Redis Configuration
-            //services.AddStackExchangeRedisCache(options =>
-            //{
-            //    options.Configuration = Configuration.GetValue<string>("CacheSettings:ConnectionString");
-            //});
-
-            // General Configuration
+            services.AddScoped<IBasketContext, BasketContext>();
             services.AddScoped<IBasketRepository, BasketRepository>();
+            services.AddScoped<IBasketService, BasketService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

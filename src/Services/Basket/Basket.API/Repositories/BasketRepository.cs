@@ -1,6 +1,8 @@
-﻿using Basket.API.Entities;
+﻿using Basket.API.Data.Context.Interfaces;
+using Basket.API.Entities;
 using Basket.API.Repositories.Interfaces;
 using Microsoft.Extensions.Caching.Distributed;
+using MongoDB.Driver;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -11,33 +13,44 @@ namespace Basket.API.Repositories
 {
     public class BasketRepository : IBasketRepository
     {
-        private readonly IDistributedCache _redisCache;
+        private readonly IBasketContext _context;
 
-        public BasketRepository(IDistributedCache cache)
+        public BasketRepository(IBasketContext context)
         {
-            _redisCache = cache ?? throw new ArgumentNullException(nameof(cache));
+            _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task<ShoppingCart> GetBasket(string userName)
+        public async Task<Cart> GetBasket(int userId)
         {
-            var basket = await _redisCache.GetStringAsync(userName);
-
-            if (String.IsNullOrEmpty(basket))
-                return null;
-
-            return JsonConvert.DeserializeObject<ShoppingCart>(basket);
+            return await _context.Baskets.Find(b => b.UserId == userId).FirstOrDefaultAsync();
         }
 
-        public async Task<ShoppingCart> UpdateBasket(ShoppingCart basket)
+        public async Task<Cart> AddToBasket(int userId, Product product)
         {
-            await _redisCache.SetStringAsync(basket.UserId, JsonConvert.SerializeObject(basket));
+            var basket = await _context.Baskets.Find(b => b.UserId == userId).FirstOrDefaultAsync();
+            if (basket == null)
+            {
+                basket.Items.Add(product);
+                Save(basket);
+            }
 
             return await GetBasket(basket.UserId);
         }
 
-        public async Task DeleteBasket(string userName)
+        public async Task DeleteFromBasket(int userId, int productId)
         {
-            await _redisCache.RemoveAsync(userName);
+            var basket = await _context.Baskets.Find(b => b.UserId == userId).FirstOrDefaultAsync();
+            if(basket == null)
+            {
+                var productToDelete = basket.Items.Find(p=>p.Id==productId);
+                basket.Items.Remove(productToDelete);
+                Save(basket);
+            }
+            
+        }
+        private void Save(Cart basket)
+        {
+            _context.Baskets.ReplaceOne(x => x.UserId == basket.UserId, basket);
         }
     }
 }

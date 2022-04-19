@@ -1,5 +1,6 @@
 ﻿using Basket.API.Entities;
 using Basket.API.Repositories.Interfaces;
+using Basket.API.Services.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -14,65 +15,35 @@ namespace Basket.API.Controllers
     [Route("api/v1/[controller]")]
     public class BasketController : ControllerBase
     {
-        private readonly IBasketRepository _repository;
+        private readonly IBasketService _service;
         private readonly ILogger<BasketController> _logger;
 
-        public BasketController(IBasketRepository repository, ILogger<BasketController> logger)
+        public BasketController(IBasketService service, ILogger<BasketController> logger)
         {
-            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            _service = service ?? throw new ArgumentNullException(nameof(service));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        [HttpGet("{userName}", Name = "GetBasket")]
-        [ProducesResponseType(typeof(ShoppingCart), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<ShoppingCart>> GetBasket(string userName)
+        [HttpGet("{userId}", Name = "GetBasket")]
+        [ProducesResponseType(typeof(Cart), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<Cart>> GetBasket(int userId)
         {
-            var basket = await _repository.GetBasket(userName);
-            return Ok(basket ?? new ShoppingCart(userName));
+            return await _service.GetBasket(userId);
         }
 
-        [HttpPost]
-        [ProducesResponseType(typeof(ShoppingCart), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<ShoppingCart>> UpdateBasket([FromBody] ShoppingCart basket)
+        [HttpPost("{userId}/{productId}", Name = "AddToBasket")]
+        [ProducesResponseType(typeof(Cart), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<Cart>> AddToBasket(int userId, int productId)
         {
-            return Ok(await _repository.UpdateBasket(basket));
+            return Ok(await _service.AddToBasket(userId,productId));
         }
 
-        [HttpDelete("{userName}", Name = "DeleteBasket")]
+        [HttpDelete("{userId}/{productId}", Name = "DeleteFromBasket")]
         [ProducesResponseType(typeof(void), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> DeleteBasket(string userName)
+        public async Task<IActionResult> DeleteFromBasket(int userId, int productId)
         {
-            await _repository.DeleteBasket(userName);
+            await _service.DeleteFromBasket(userId,productId);
             return Ok();
-        }
-
-        [Route("[action]")]
-        [HttpPost]
-        [ProducesResponseType((int)HttpStatusCode.Accepted)]
-        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> Checkout([FromBody] BasketCheckout basketCheckout)
-        {
-            // get existing basket with total price            
-            // Set TotalPrice on basketCheckout eventMessage
-            // send checkout event to rabbitmq
-            // remove the basket
-
-            // get existing basket with total price
-            var basket = await _repository.GetBasket(basketCheckout.UserName);
-            if (basket == null)
-            {
-                return BadRequest();
-            }
-
-            //// send checkout event to rabbitmq
-            //var eventMessage = _mapper.Map<BasketCheckoutEvent>(basketCheckout);
-            //eventMessage.TotalPrice = basket.TotalPrice;
-            //await _publishEndpoint.Publish<BasketCheckoutEvent>(eventMessage);
-
-            // remove the basket
-            await _repository.DeleteBasket(basket.UserId);
-
-            return Accepted();
         }
     }
 }

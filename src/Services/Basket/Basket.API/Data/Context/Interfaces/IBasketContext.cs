@@ -5,6 +5,6 @@ namespace Basket.API.Data.Context.Interfaces
 {
     public interface IBasketContext
     {
-        IMongoCollection<ShoppingCart> Baskets { get; }
+        IMongoCollection<Cart> Baskets { get; }
     }
 }

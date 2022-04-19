@@ -26,8 +26,9 @@ namespace Basket.Worker.Services
         }
 
 
-        public void UpdateProductInBaskets(Product item)
+        public void UpdateProductInBaskets(ProductModel product)
         {
+            var item = Product.From(product);
             _logger.LogInformation($"Updating baskets with item {item.Id} - {item.Name}");
             var baskets = FindBasketsWithProduct(item);
             if (baskets != null)
@@ -47,8 +48,9 @@ namespace Basket.Worker.Services
             }
         }
 
-        public void DeleteProductInBaskets(Product item)
+        public void DeleteProductInBaskets(ProductModel product)
         {
+            var item = Product.From(product);
             _logger.LogInformation($"Deleting item {item.Id} - {item.Name} from baskets");
             var baskets = FindBasketsWithProduct(item);
             if (baskets != null)

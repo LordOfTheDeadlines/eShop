@@ -2,6 +2,7 @@ using Basket.Worker.Data.Context;
 using Basket.Worker.Data.Context.Interfaces;
 using Basket.Worker.Data.Messages;
 using Basket.Worker.RabbitMQ;
+using Basket.Worker.Services;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -17,7 +18,7 @@ namespace Basket.Worker
     public class Worker : BackgroundService
     {
         private readonly ILogger<Worker> _logger;
-        //private readonly CatalogService _catalogService;
+        private readonly BasketService _basketService;
         private readonly RabbitService _rabbitMq;
         private readonly IBasketContext _context;
 
@@ -25,7 +26,7 @@ namespace Basket.Worker
         {
             _logger = loggerFactory.CreateLogger<Worker>();
             _context = new BasketContext();
-            //_catalogService = new CatalogService(_context, loggerFactory);
+            _basketService = new BasketService(_context, loggerFactory);
             _rabbitMq = new RabbitService();
             _logger.LogInformation("Initialization completed");
         }
@@ -53,13 +54,11 @@ namespace Basket.Worker
                 _logger.LogError("Message error. Message is null");
             else if (message.Item == null)
                 _logger.LogError("Message error. Message is empty, data is null: " + message.Action);
-            //else if (message.Action == "AddItem")
-            //    _catalogService.AddProduct(message.Item);
-            //else if (message.Action == "UpdateItem")
-            //    _catalogService.UpdateProduct(message.Item);
-            //else if (message.Action == "DeleteItem")
-            //    _catalogService.DeleteProduct(message.Item);
-            //else
+            else if (message.Action == "UpdateItem")
+                _basketService.UpdateProductInBaskets(message.Item);
+            else if (message.Action == "DeleteItem")
+                _basketService.DeleteProductInBaskets(message.Item);
+            else
                 _logger.LogError("Message error. Unknown action in item message: " + message.Action);
         }
 

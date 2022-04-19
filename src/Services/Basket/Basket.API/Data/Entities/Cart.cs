@@ -5,16 +5,16 @@ using System.Threading.Tasks;
 
 namespace Basket.API.Entities
 {
-    public class ShoppingCart
+    public class Cart
     {
         public int UserId { get; set; }
-        public List<ShoppingCartItem> Items { get; set; } = new List<ShoppingCartItem>();
+        public List<Product> Items { get; set; } = new List<Product>();
 
-        public ShoppingCart()
+        public Cart()
         {
         }
 
-        public ShoppingCart(int userId)
+        public Cart(int userId)
         {
             UserId = userId;
         }
@@ -26,7 +26,7 @@ namespace Basket.API.Entities
                 decimal totalprice = 0;
                 foreach (var item in Items)
                 {
-                    totalprice += item.Price * item.Quantity;
+                    totalprice += item.Price;
                 }
                 return totalprice;
             }

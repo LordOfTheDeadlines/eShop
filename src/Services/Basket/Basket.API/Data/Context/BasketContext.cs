@@ -12,10 +12,10 @@ namespace Basket.API.Data.Context
             var client = new MongoClient(configuration.GetValue<string>("DatabaseSettings:ConnectionString"));
             var database = client.GetDatabase(configuration.GetValue<string>("DatabaseSettings:DatabaseName"));
 
-            Baskets = database.GetCollection<ShoppingCart>(configuration.GetValue<string>("DatabaseSettings:CollectionName"));
+            Baskets = database.GetCollection<Cart>(configuration.GetValue<string>("DatabaseSettings:CollectionName"));
 
         }
 
-        public IMongoCollection<ShoppingCart> Baskets { get; }
+        public IMongoCollection<Cart> Baskets { get; }
     }
 }
