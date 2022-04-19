@@ -19,17 +19,17 @@ namespace Basket.Worker.Repositories
             _redisCache = cache ?? throw new ArgumentNullException(nameof(cache));
         }
 
-        public async Task<ShoppingCart> GetBasket(string userName)
+        public async Task<Data.Entities.Cart> GetBasket(string userName)
         {
             var basket = await _redisCache.GetStringAsync(userName);
 
             if (String.IsNullOrEmpty(basket))
                 return null;
 
-            return JsonConvert.DeserializeObject<ShoppingCart>(basket);
+            return JsonConvert.DeserializeObject<Basket>(basket);
         }
 
-        public async Task<ShoppingCart> UpdateBasket(ShoppingCart basket)
+        public async Task<Data.Entities.Cart> UpdateBasket(Data.Entities.Cart basket)
         {
             await _redisCache.SetStringAsync(basket.UserName, JsonConvert.SerializeObject(basket));
 

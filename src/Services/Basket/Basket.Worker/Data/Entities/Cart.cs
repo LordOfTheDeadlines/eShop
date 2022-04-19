@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace Basket.Worker.Data.Entities
 {
-    public class ShoppingCart
+    public class Cart
     {
-        public string UserName { get; set; }
-        public List<ShoppingCartItem> Items { get; set; } = new List<ShoppingCartItem>();
+        public int UserId { get; set; }
+        public List<Product> Items { get; set; } = new List<Product>();
 
-        public ShoppingCart()
+        public Cart()
         {
         }
 
-        public ShoppingCart(string userName)
+        public Cart(int userId)
         {
-            UserName = userName;
+            UserId = userId;
         }
 
         public decimal TotalPrice

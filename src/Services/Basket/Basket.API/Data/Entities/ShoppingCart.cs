@@ -7,16 +7,16 @@ namespace Basket.API.Entities
 {
     public class ShoppingCart
     {
-        public string UserName { get; set; }
+        public int UserId { get; set; }
         public List<ShoppingCartItem> Items { get; set; } = new List<ShoppingCartItem>();
 
         public ShoppingCart()
         {
         }
 
-        public ShoppingCart(string userName)
+        public ShoppingCart(int userId)
         {
-            UserName = userName;
+            UserId = userId;
         }
 
         public decimal TotalPrice

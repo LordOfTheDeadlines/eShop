@@ -70,7 +70,7 @@ namespace Basket.API.Controllers
             //await _publishEndpoint.Publish<BasketCheckoutEvent>(eventMessage);
 
             // remove the basket
-            await _repository.DeleteBasket(basket.UserName);
+            await _repository.DeleteBasket(basket.UserId);
 
             return Accepted();
         }
