@@ -51,7 +51,7 @@ services:
     container_name: basketdb
     restart: always    
     ports:
-        - "6379:6379"
+       - "27018:27017"
 
   admin.api:
     container_name: admin.api
@@ -124,11 +124,16 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
-      - "80"
+      - "8002:80"
+    depends_on:
+      - basketdb
 
   basket.worker:
     container_name: basket.worker
     environment:
+      - MONGO_CONNECTION_STRING=mongodb://basketdb:27018
+      - MONGO_DATABASE=basketdb
+      - MONGO_COLLECTION=Basket
       - RABBITMQ_HOST=rabbitmq
       - RABBITMQ_PORT=5672
       - RABBITMQ_USER=shop

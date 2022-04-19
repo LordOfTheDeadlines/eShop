@@ -28,10 +28,10 @@ namespace Basket.API
         public void ConfigureServices(IServiceCollection services)
         {
             // Redis Configuration
-            services.AddStackExchangeRedisCache(options =>
-            {
-                options.Configuration = Configuration.GetValue<string>("CacheSettings:ConnectionString");
-            });
+            //services.AddStackExchangeRedisCache(options =>
+            //{
+            //    options.Configuration = Configuration.GetValue<string>("CacheSettings:ConnectionString");
+            //});
 
             // General Configuration
             services.AddScoped<IBasketRepository, BasketRepository>();

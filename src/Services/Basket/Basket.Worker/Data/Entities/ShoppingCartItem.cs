@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Basket.Worker.Data.Entities
 {
-    class ShoppingCartItem
+    public class ShoppingCartItem
     {
         public int Quantity { get; set; }
         public string Color { get; set; }

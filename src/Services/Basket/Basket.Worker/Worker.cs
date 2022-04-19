@@ -1,3 +1,5 @@
+using Basket.Worker.Data.Context;
+using Basket.Worker.Data.Context.Interfaces;
 using Basket.Worker.Data.Messages;
 using Basket.Worker.RabbitMQ;
 using Microsoft.Extensions.Caching.Distributed;
@@ -17,13 +19,12 @@ namespace Basket.Worker
         private readonly ILogger<Worker> _logger;
         //private readonly CatalogService _catalogService;
         private readonly RabbitService _rabbitMq;
-        //private readonly ICatalogContext _context;
-        private readonly IDistributedCache _redisCache;
+        private readonly IBasketContext _context;
 
         public Worker(ILoggerFactory loggerFactory)
         {
             _logger = loggerFactory.CreateLogger<Worker>();
-            //_context = new CatalogContext();
+            _context = new BasketContext();
             //_catalogService = new CatalogService(_context, loggerFactory);
             _rabbitMq = new RabbitService();
             _logger.LogInformation("Initialization completed");
