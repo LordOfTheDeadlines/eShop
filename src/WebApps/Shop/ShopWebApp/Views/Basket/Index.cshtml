@@ -38,10 +38,11 @@
                                 <td class="text-right">@(cartItem.Price) $</td>
                                 <td class="text-right">
 
-                                    <form asp-page-handler="removetocart" method="post">
+                                  @*  <form asp-page-handler="removetocart" method="post">
                                         <button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
                                         <input type="hidden" asp-for="@cartItem.Id" name="productId" />
-                                    </form>
+                                    </form>*@
+                                    @Html.ActionLink("Delete", "DeleteFromBasket", "Basket", new { productId = @cartItem.Id })
 
                                 </td>
                             </tr>
@@ -62,7 +63,7 @@
         <div class="col mb-2">
             <div class="row">
                 <div class="col-sm-12  col-md-6">
-                    @*<button class="btn btn-lg btn-block btn-danger">Continue Shopping</button>*@
+                    <button class="btn btn-lg btn-block btn-danger">Continue Shopping</button>
                     @*<a asp-page="Product" class="btn btn-lg btn-block btn-success">Continue Shopping</a>*@
                 </div>
                 <div class="col-sm-12 col-md-6 text-right">

@@ -26,7 +26,7 @@ namespace ShopWebApp.Services
 
         public async Task DeleteFromBasket(int userId, int productId)
         {
-            await _client.DeleteAsync($"/api/v1/Basket/{userId}");
+            await _client.DeleteAsync($"/api/v1/Basket/{userId}/{productId}");
         }
 
 

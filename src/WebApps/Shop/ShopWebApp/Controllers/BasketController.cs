@@ -23,11 +23,11 @@ namespace ShopWebApp.Controllers
             return View(await _basketService.GetBasket(1));
         }
 
-        public async Task<ActionResult> EditAsync(int productId)
+        public async Task<ActionResult> DeleteFromBasket(int productId)
         {
             var userName = "swn";
             await _basketService.DeleteFromBasket(1, productId);
-            return View(await _basketService.GetBasket(1));
+            return RedirectToAction(nameof(Index));
         }
 
         public async Task<ActionResult> AddToBasket(int productId)
