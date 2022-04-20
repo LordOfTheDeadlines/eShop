@@ -43,7 +43,6 @@ namespace Auth.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<AuthConfiguration>(Configuration.GetSection("Authentication"));
-            //services.Configure<JWTConfig>(Configuration.GetSection("JWT"));
 
             services.AddDbContext<AuthContext>(opts =>
             {
@@ -55,21 +54,6 @@ namespace Auth.API
 
             services.AddApplicationServices(Configuration);
             services.AddAuth(Configuration);
-
-            //services.AddAuthentication().AddJwtBearer("users_auth_scheme", options =>
-            //{
-            //    var jwtConfig = new JWTConfig();
-            //    Configuration.GetSection("JWT").Bind(jwtConfig);
-            //    options.TokenValidationParameters = new TokenValidationParameters()
-            //    {
-            //        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfig.Secret)),
-            //        ValidAudience = "usersAudience",
-            //        ValidIssuer = "usersIssuer",
-            //        ValidateIssuerSigningKey = true,
-            //        ValidateLifetime = true,
-            //        ClockSkew = TimeSpan.Zero
-            //    };
-            //});
 
             services.AddOcelot(OcelotConfiguration);
 

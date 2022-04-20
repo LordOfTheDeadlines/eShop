@@ -2,6 +2,7 @@
 using Auth.API.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace Auth.API.Controllers
 {
@@ -26,6 +27,7 @@ namespace Auth.API.Controllers
             {
                 var token = _tokenService.CreateToken(result.Value);
                 Response.Headers.Append("Authorization", $"Bearer {token}");
+                Response.Headers.Append("UserId", result.Value.Id.ToString());
                 return Ok();
             }
             else
@@ -40,6 +42,7 @@ namespace Auth.API.Controllers
             {
                 var token = _tokenService.CreateToken(result.Value);
                 Response.Headers.Append("Authorization", $"Bearer {token}");
+                Response.Headers.Append("UserId", result.Value.Id.ToString());
                 return Ok();
             }
             else

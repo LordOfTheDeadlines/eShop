@@ -19,7 +19,7 @@ namespace ShopWebApp.Controllers
 
         public async Task<ActionResult> Index()
         {
-            var userName = "swn";
+            var userId = HttpContext.User; 
             return View(await _basketService.GetBasket(1));
         }
 
