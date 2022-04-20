@@ -38,7 +38,6 @@ namespace Basket.Worker.Services
                     oldProduct.Name = item.Name;        
                     oldProduct.Price = item.Price;  
                     oldProduct.ImageUrl = item.ImageUrl;    
-                    oldProduct.CategoryId = item.CategoryId;
                     Save(basket);
                 }
             }

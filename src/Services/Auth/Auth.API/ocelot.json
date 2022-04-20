@@ -61,8 +61,7 @@
         }
       ],
       "UpstreamPathTemplate": "/api/v1/Catalog",
-      "UpstreamHttpMethod": [ "GET" ],
-      "FileCacheOptions": { "TtlSeconds": 30 }
+      "UpstreamHttpMethod": [ "GET" ]
     },
     {
       "DownstreamPathTemplate": "/api/v1/Catalog/{id}",
@@ -74,8 +73,7 @@
         }
       ],
       "UpstreamPathTemplate": "/api/v1/Catalog/{id}",
-      "UpstreamHttpMethod": [ "GET" ],
-      "FileCacheOptions": { "TtlSeconds": 30 }
+      "UpstreamHttpMethod": [ "GET" ]
     },
     {
       "DownstreamPathTemplate": "/api/v1/Catalog/Product/{id}",
@@ -87,8 +85,7 @@
         }
       ],
       "UpstreamPathTemplate": "/api/v1/Catalog/Product/{id}",
-      "UpstreamHttpMethod": [ "GET" ],
-      "FileCacheOptions": { "TtlSeconds": 30 }
+      "UpstreamHttpMethod": [ "GET" ]
     },
     //Basket API
     {
@@ -101,8 +98,7 @@
         }
       ],
       "UpstreamPathTemplate": "/api/v1/Basket/{userId}",
-      "UpstreamHttpMethod": [ "GET" ],
-      "FileCacheOptions": { "TtlSeconds": 30 }
+      "UpstreamHttpMethod": [ "GET" ]
     },
     {
       "DownstreamPathTemplate": "/api/v1/Basket/{userId}/{productId}",
@@ -114,8 +110,7 @@
         }
       ],
       "UpstreamPathTemplate": "/api/v1/Basket/{userId}/{productId}",
-      "UpstreamHttpMethod": [ "GET", "POST", "DELETE" ],
-      "FileCacheOptions": { "TtlSeconds": 30 }
+      "UpstreamHttpMethod": [ "GET", "POST", "DELETE" ]
     }
   ],
   "GlobalConfiguration": { }
